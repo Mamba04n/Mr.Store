@@ -7,5 +7,4 @@ if ($conexion) {
 }else{
     echo 'Conexión Fallida';
 }
-
 ?>

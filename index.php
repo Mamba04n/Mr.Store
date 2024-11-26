@@ -1,5 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+session_start(); // Asegúrate de iniciar la sesión al principio del archivo
+?>
+
+<!DOCTYPE php>
+<php lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -21,35 +25,26 @@
     <!-- Header -->
     <header class="header" id="header">
       <!-- Top Nav -->
-      <div class="top-nav">
-        <div class="container d-flex">
-          <p>Para ordenar contacta al 82877801</p>
-          <ul class="d-flex">
-            <li><a href="#">Acerca de nosotros</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Contacto</a></li>
-          </ul>
+      <div class="top-nav hei">
+        <div>
         </div>
       </div>
       <div class="navigation">
         <div class="nav-center container d-flex">
-        <a href="/" class="logo"><h1>Mr. Store</h1></a>
+        <a href="" class="logo"><h1>Mr. Store</h1></a>
 
           <ul class="nav-list d-flex">
             <li class="nav-item">
-              <a href="/" class="nav-link">Inicio</a>
+              <a href="index.php" class="nav-link">Inicio</a>
             </li>
             <li class="nav-item">
-              <a href="product.php" class="nav-link">tienda</a>
+              <a href="product.php" class="nav-link">Tienda</a>
             </li>
             <li class="nav-item">
-            <a href="#terms" class="nav-link">Terminos</a>
+              <a href="pedidos.php" class="nav-link">Pedidos</a>
             </li>
             <li class="nav-item">
-              <a href="#about" class="nav-link">Acerca</a>
-            </li>
-            <li class="nav-item">
-              <a href="#contact" class="nav-link">Contacto</a>
+              <a href="inventario.php" class="nav-link">Inventario</a>
             </li>
             <li class="icons d-flex">
             <a href="login.php" class="icon">
@@ -102,7 +97,7 @@
                   <span class="">Inspiracion 2024</span>
                   <h1 class="">NUEVAS PRENDAS!!</h1>
                   <p>Articulos para todo publico</p>
-                  <a href="#" class="hero-btn">COMPRA AHORA!!</a>
+                  <a href="product.php" class="hero-btn">COMPRA AHORA!!</a>
                 </div>
                 <div class="right">
                     <img class="img1" src="./images/hero-1.png" alt="">
@@ -152,156 +147,46 @@
       </div>
     </section>
 
-    <!-- New Arrivals -->
-    <section class="section new-arrival">
-      <div class="title">
+<!-- New Arrivals -->
+<section class="section new-arrival">
+    <div class="title">
         <h1>NUESTROS PRODUCTOS</h1>
         <p>Calidad a tus manos</p>
-      </div>
+    </div>
+    <div class="product-center">
+        <?php
+        include './php/conexion.php';
+        $sentencia = $pdo->prepare("SELECT * FROM mrstore.productos;");
+        $sentencia->execute();
+        $listaProductos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+        ?>
 
-      <div class="product-center">
-        <div class="product-item">
-          <div class="overlay">
-            <a href="productDetails.php" class="product-thumb">
-              <img src="./images/ChaquetaH.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>PARA HOMBRE</span>
-            <a href="productDetails.php">Abrigo informal de doble botonadura de lana unicolor</a>
-            <h4>$35</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/SudaderaH.jpg" alt="" />
-            </a>
-            <span class="discount">50%</span>
-          </div>
-
-          <div class="product-info">
-            <span>PARA HOMBRE</span>
-            <a href="">Camisa casual manga larga con cuello redondo de color negro</a>
-            <h4>$19</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/JeanH.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>PARA HOMBRE</span>
-            <a href="">Jean estilo casual para hombre estilo entallado</a>
-            <h4>$33</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/pantalonH.jpg" alt="" />
-            </a>
-            <span class="discount">50%</span>
-          </div>
-          <div class="product-info">
-            <span>PARA HOMBRE</span>
-            <a href="">Jean estilo casual para hombre estilo entallado</a>
-            <h4>$24</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/pegadoM.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>PARA MUJER</span>
-            <a href="">Sweetro Tops sin tirantes estilo Y2K</a>
-            <h4>$12</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/PijamaM.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>PARA MUJER</span>
-            <a href="">Conjunto de pijama de mujer con estampado</a>
-            <h4>$15</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/vestidoM.jpg" alt="" />
-            </a>
-            <span class="discount">50%</span>
-          </div>
-          <div class="product-info">
-            <span>PARA MUJER</span>
-            <a href="">Vestido de hombro descubierto</a>
-            <h4>$12</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/conjuntoM.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>PARA MUJER</span>
-            <a href="">Conjunto de dos piezas EZwear</a>
-            <h4>$30</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-      </div>
-    </section>
+        <?php foreach ($listaProductos as $producto) { ?>
+            <div class="product-item">
+                <div class="overlay">
+                    <a href="productDetails.php" class="product-thumb">
+                        <img src="<?php echo $producto['imagen']; ?>" alt="" />
+                    </a>
+                </div>
+                <div class="product-info">
+                    <span><?php echo $producto['Nombre']; ?></span>
+                    <a href="productDetails.php"><?php echo $producto['Descripcion']; ?></a>
+                    <h4><?php echo $producto['Precio'], "$"; ?></h4>
+                </div>
+                <form action="mostrarCarrito.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id'], COD, KEY); ?>">
+                    <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['Nombre'], COD, KEY); ?>">
+                    <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['Precio'], COD, KEY); ?>">
+                    <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
+                    <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
+                    <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
+                        <i class="bx bx-cart bx-tada"></i>
+                    </button>
+                </form>
+            </div>
+        <?php } ?>
+    </div>
+</section>
 
 
     <!-- Promo -->
@@ -451,4 +336,4 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
   <script src="./js/slider.js"></script>
   <script src="./js/index.js"></script>
-</html>
+</php>

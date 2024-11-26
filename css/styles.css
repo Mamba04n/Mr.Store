@@ -72,6 +72,10 @@ Header
   color: var(--white);
 }
 
+.hei{
+  height: 15px;
+}
+
 .top-nav div {
   justify-content: space-between;
   height: 4.5rem;
@@ -1402,4 +1406,75 @@ th:last-child {
 
 .login-form form p a {
   color: dodgerblue;
+}
+
+.brd{
+  border: var(--black);
+  border-bottom: var(--black) 1px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-style: solid;
+}
+.container2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.div1{
+  width: 45%;
+  height: 100%;
+  padding-left: 30px;
+}
+.div2{
+  width: 45%;
+  height: 100%;
+}
+
+.format{
+  height: 3rem;
+  color: rgb(150, 149, 150);
+}
+
+.div1 h3{
+  color: var(--black);
+  height: 4rem;
+}
+.selector{
+  width: 100%;
+  cursor: text;
+}
+.text{
+  padding: 8px;
+}
+#dpto{
+  padding: 10px;
+  border: 2px solid black;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  font-weight: bold;
+  font-size: medium;
+  margin-top:15px ;
+  cursor: pointer !important;
+}
+#dpto:hover{
+  box-shadow: 2px 2px 5px black;
+}
+
+.pagina{
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--purple);
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  background: var(--white);
+}
+
+.pagina:hover{
+  border: 1px solid var(--purple);
+  background-color: var(--purple);
+  color: #fff;
 }

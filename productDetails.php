@@ -15,36 +15,30 @@
 
   <body>
     <!-- Navigation -->
-    <div class="top-nav">
-      <div class="container d-flex">
-        <p>Order Online Or Call Us: (001) 2222-55555</p>
-        <ul class="d-flex">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
+    <div class="top-nav hei">
+      <div>
       </div>
     </div>
     <div class="navigation">
       <div class="nav-center container d-flex">
-        <a href="index.php" class="logo"><h1>Dans</h1></a>
+        <a href="index.php" class="logo"><h1>Mr. Store</h1></a>
 
         <ul class="nav-list d-flex">
           <li class="nav-item">
-            <a href="/" class="nav-link">Home</a>
+            <a href="index.php" class="nav-link">Inicio</a>
           </li>
           <li class="nav-item">
-            <a href="product.php" class="nav-link">Shop</a>
+            <a href="product.php" class="nav-link">Tienda</a>
           </li>
           <li class="nav-item">
-            <a href="#terms" class="nav-link">Terms</a>
+            <a href="pedidos.php" class="nav-link">Pedidos</a>
           </li>
           <li class="nav-item">
-            <a href="#about" class="nav-link">About</a>
+            <a href="inventario.php" class="nav-link">Inventario</a>
           </li>
-          <li class="nav-item">
-            <a href="#contact" class="nav-link">Contact</a>
-          </li>
+          <!-- <li class="nav-item">
+            <a href="#contact" class="nav-link">Contactar</a>
+          </li> -->
           <li class="icons d-flex">
             <a href="login.php" class="icon">
               <i class="bx bx-user"></i>
@@ -75,7 +69,7 @@
             <span class="d-flex">0</span>
           </div>
           <a href="cart.php" class="icon">
-            <i class="bx bx-cart"></i>
+            <i class="bx bx-cart "></i>
             <span class="d-flex">0</span>
           </a>
         </div>

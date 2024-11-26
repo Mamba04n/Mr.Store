@@ -14,36 +14,30 @@
   </head>
   <body>
     <!-- Navigation -->
-    <div class="top-nav">
-      <div class="container d-flex">
-        <p>Order Online Or Call Us: (001) 2222-55555</p>
-        <ul class="d-flex">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
+    <div class="top-nav hei">
+      <div>
       </div>
     </div>
     <div class="navigation">
       <div class="nav-center container d-flex">
-        <a href="index.php" class="logo"><h1>Dans</h1></a>
+        <a href="index.php" class="logo"><h1>Mr. Store</h1></a>
 
         <ul class="nav-list d-flex">
           <li class="nav-item">
-            <a href="/" class="nav-link">Home</a>
+            <a href="index.php" class="nav-link">Inicio</a>
           </li>
           <li class="nav-item">
-            <a href="product.php" class="nav-link">Shop</a>
+            <a href="product.php" class="nav-link">Tienda</a>
           </li>
           <li class="nav-item">
-            <a href="#terms" class="nav-link">Terms</a>
+            <a href="pedidos.php" class="nav-link">Pedidos</a>
           </li>
           <li class="nav-item">
-            <a href="#about" class="nav-link">About</a>
+            <a href="inventario.php" class="nav-link">Inventario</a>
           </li>
-          <li class="nav-item">
-            <a href="#contact" class="nav-link">Contact</a>
-          </li>
+          <!-- <li class="nav-item">
+            <a href="#contact" class="nav-link">Contacto</a>
+          </li> -->
           <li class="icons d-flex">
             <a href="login.php" class="icon">
               <i class="bx bx-user"></i>
@@ -86,48 +80,36 @@
     </div>
     <!-- Login -->
     <div class="container">
-      <div class="login-form">
-        <form action="">
-          <h1>Login</h1>
-          <p>
-            Already have an account? Login in or
-            <a href="signup.html">Sign Up</a>
-          </p>
+        <div class="login-form">
+            <form action="./php/login_valider.php" method="POST">
+                <h1>Iniciar Sesion</h1>
+                <p>
+                    Ya tienes una cuenta o
+                    <a href="signup.php">Registrarse</a>
+                </p>
 
+                <label for="email">Usuario</label>
+                <input type="text" placeholder="Ingrese Usuario" name="usuario" required />
 
-          <label for="email">Usuario</label>
-          <input type="text" placeholder="Ingrese Usuario" name="usuario" required />
+                <label for="psw">Password</label>
+                <input type="password" placeholder="Ingrese contraseña" name="psw" required />
 
-          <label for="psw">Password</label>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            name="psw"
-            required
-          />
+                <label>
+                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom: 15px" />
+                    Remember me
+                </label>
 
+                <p>
+                    Creando una cuenta indica que estas de acuerdo con nuestros
+                    <a href="#">Terminos y condiciones</a>.
+                </p>
 
-          <label>
-            <input
-              type="checkbox"
-              checked="checked"
-              name="remember"
-              style="margin-bottom: 15px"
-            />
-            Remember me
-          </label>
-
-          <p>
-            By creating an account you agree to our
-            <a href="#">Terms & Privacy</a>.
-          </p>
-
-          <div class="buttons">
-            <button type="button" class="cancelbtn">Cancel</button>
-            <button type="submit" class="signupbtn" href="index.php">Login</button>
-          </div>
-        </form>
-      </div>
+                <div class="buttons">
+                    <button type="button" class="cancelbtn">Cancelar</button>
+                    <button type="submit" class="signupbtn">Iniciar Sesion</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- Footer -->
