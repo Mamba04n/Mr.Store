@@ -10,8 +10,9 @@
     />
     <!-- Custom StyleSheet -->
     <link rel="stylesheet" href="./css/styles.css" />
-    <title>Your Cart</title>
+    <title>Boy’s T-Shirt - Codevo</title>
   </head>
+
   <body>
     <!-- Navigation -->
     <div class="top-nav">
@@ -26,14 +27,14 @@
     </div>
     <div class="navigation">
       <div class="nav-center container d-flex">
-        <a href="index.html" class="logo"><h1>Dans</h1></a>
+        <a href="index.php" class="logo"><h1>Dans</h1></a>
 
         <ul class="nav-list d-flex">
           <li class="nav-item">
             <a href="/" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="product.html" class="nav-link">Shop</a>
+            <a href="product.php" class="nav-link">Shop</a>
           </li>
           <li class="nav-item">
             <a href="#terms" class="nav-link">Terms</a>
@@ -45,7 +46,7 @@
             <a href="#contact" class="nav-link">Contact</a>
           </li>
           <li class="icons d-flex">
-            <a href="login.html" class="icon">
+            <a href="login.php" class="icon">
               <i class="bx bx-user"></i>
             </a>
             <div class="icon">
@@ -55,7 +56,7 @@
               <i class="bx bx-heart"></i>
               <span class="d-flex">0</span>
             </div>
-            <a href="cart.html" class="icon">
+            <a href="cart.php" class="icon">
               <i class="bx bx-cart"></i>
               <span class="d-flex">0</span>
             </a>
@@ -63,7 +64,7 @@
         </ul>
 
         <div class="icons d-flex">
-          <a href="login.html" class="icon">
+          <a href="login.php" class="icon">
             <i class="bx bx-user"></i>
           </a>
           <div class="icon">
@@ -73,7 +74,7 @@
             <i class="bx bx-heart"></i>
             <span class="d-flex">0</span>
           </div>
-          <a href="cart.html" class="icon">
+          <a href="cart.php" class="icon">
             <i class="bx bx-cart"></i>
             <span class="d-flex">0</span>
           </a>
@@ -85,115 +86,57 @@
       </div>
     </div>
 
-    <!-- Cart Items -->
-    <div class="container cart">
-      <table>
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Subtotal</th>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-2.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $50.00</span> <br />
-                <a href="#">remove</a>
-              </div>
+    <!-- Product Details -->
+    <section class="section product-detail">
+      <div class="details container">
+        <div class="left image-container">
+          <div class="main">
+            <img src="./images/product-8.jpg" id="zoom" alt="" />
+          </div>
+        </div>
+        <div class="right">
+          <span>Home/T-shirt</span>
+          <h1>Boy’s T-Shirt By Handsome</h1>
+          <div class="price">$50</div>
+          <form>
+            <div>
+              <select>
+                <option value="Select Size" selected disabled>
+                  Select Size
+                </option>
+                <option value="1">32</option>
+                <option value="2">42</option>
+                <option value="3">52</option>
+                <option value="4">62</option>
+              </select>
+              <span><i class="bx bx-chevron-down"></i></span>
             </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$50.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-3.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $90.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$90.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-4.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $60.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$60.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-5.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $60.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$60.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-6.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $60.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$60.00</td>
-        </tr>
-      </table>
-      <div class="total-price">
-        <table>
-          <tr>
-            <td>Subtotal</td>
-            <td>$200</td>
-          </tr>
-          <tr>
-            <td>Tax</td>
-            <td>$50</td>
-          </tr>
-          <tr>
-            <td>Total</td>
-            <td>$250</td>
-          </tr>
-        </table>
-        <a href="#" class="checkout btn">Proceed To Checkout</a>
+          </form>
+          <form class="form">
+            <input type="text" placeholder="1" />
+            <a href="cart.php" class="addCart">Add To Cart</a>
+          </form>
+          <h3>Product Detail</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero minima
+            delectus nulla voluptates nesciunt quidem laudantium, quisquam
+            voluptas facilis dicta in explicabo, laboriosam ipsam suscipit!
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Latest Products -->
+    <!-- Related -->
     <section class="section featured">
       <div class="top container">
-        <h1>Latest Products</h1>
+        <h1>Related Products</h1>
         <a href="#" class="view-more">View more</a>
       </div>
       <div class="product-center container">
         <div class="product-item">
           <div class="overlay">
             <a href="" class="product-thumb">
-              <img src="./images/product-6.jpg" alt="" />
+              <img src="./images/product-5.jpg" alt="" />
             </a>
           </div>
           <div class="product-info">
@@ -210,7 +153,7 @@
         <div class="product-item">
           <div class="overlay">
             <a href="" class="product-thumb">
-              <img src="./images/product-1.jpg" alt="" />
+              <img src="./images/product-2.jpg" alt="" />
             </a>
             <span class="discount">40%</span>
           </div>
@@ -228,7 +171,7 @@
         <div class="product-item">
           <div class="overlay">
             <a href="" class="product-thumb">
-              <img src="./images/product-3.jpg" alt="" />
+              <img src="./images/product-7.jpg" alt="" />
             </a>
           </div>
           <div class="product-info">
@@ -245,8 +188,9 @@
         <div class="product-item">
           <div class="overlay">
             <a href="" class="product-thumb">
-              <img src="./images/product-2.jpg" alt="" />
+              <img src="./images/product-4.jpg" alt="" />
             </a>
+            <span class="discount">40%</span>
           </div>
           <div class="product-info">
             <span>MEN'S CLOTHES</span>
@@ -261,7 +205,6 @@
         </div>
       </div>
     </section>
-
     <!-- Footer -->
     <footer class="footer">
       <div class="row">
@@ -288,8 +231,21 @@
         </div>
       </div>
     </footer>
-
     <!-- Custom Script -->
     <script src="./js/index.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.0.min.js"
+      integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/zoomsl.min.js"></script>
+    <script>
+      $(function () {
+        console.log("hello");
+        $("#zoom").imagezoomsl({
+          zoomrange: [4, 4],
+        });
+      });
+    </script>
   </body>
 </html>

@@ -10,7 +10,7 @@
     />
     <!-- Custom StyleSheet -->
     <link rel="stylesheet" href="./css/styles.css" />
-    <title>Login</title>
+    <title>Mr. Store</title>
   </head>
   <body>
     <!-- Navigation -->
@@ -26,14 +26,14 @@
     </div>
     <div class="navigation">
       <div class="nav-center container d-flex">
-        <a href="index.html" class="logo"><h1>Dans</h1></a>
+        <a href="index.php" class="logo"><h1>Dans</h1></a>
 
         <ul class="nav-list d-flex">
           <li class="nav-item">
             <a href="/" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="product.html" class="nav-link">Shop</a>
+            <a href="product.php" class="nav-link">Shop</a>
           </li>
           <li class="nav-item">
             <a href="#terms" class="nav-link">Terms</a>
@@ -45,7 +45,7 @@
             <a href="#contact" class="nav-link">Contact</a>
           </li>
           <li class="icons d-flex">
-            <a href="login.html" class="icon">
+            <a href="login.php" class="icon">
               <i class="bx bx-user"></i>
             </a>
             <div class="icon">
@@ -55,7 +55,7 @@
               <i class="bx bx-heart"></i>
               <span class="d-flex">0</span>
             </div>
-            <a href="cart.html" class="icon">
+            <a href="cart.php" class="icon">
               <i class="bx bx-cart"></i>
               <span class="d-flex">0</span>
             </a>
@@ -63,7 +63,7 @@
         </ul>
 
         <div class="icons d-flex">
-          <a href="login.html" class="icon">
+          <a href="login.php" class="icon">
             <i class="bx bx-user"></i>
           </a>
           <div class="icon">
@@ -73,7 +73,7 @@
             <i class="bx bx-heart"></i>
             <span class="d-flex">0</span>
           </div>
-          <a href="cart.html" class="icon">
+          <a href="cart.php" class="icon">
             <i class="bx bx-cart"></i>
             <span class="d-flex">0</span>
           </a>
@@ -88,30 +88,35 @@
     <div class="container">
       <div class="login-form">
         <form action="">
-          <h1>Login</h1>
+          <h1>Sign Up</h1>
           <p>
-            Already have an account? Login in or
-            <a href="signup.html">Sign Up</a>
+            Please fill in this form to create an account. or
+            <a href="login.php">Login</a>
           </p>
 
-          <label for="email">Email</label>
-          <input type="text" placeholder="Enter Email" name="email" required />
+          <label for="email">Nombre Completo</label>
+          <input type="text" placeholder="Ingrese Nombre Completo" name="Nombre" required />
+          <label for="email">Correo electronico</label>
+          <input type="text" placeholder="Ingrese Correo electronico" name="correo" required />
+          <label for="email">Usuario</label>
+          <input type="text" placeholder="Ingrese Usuario" name="usuario" required />
 
-          <label for="psw">Password</label>
+          <label for="psw">Contraseña</label>
           <input
             type="password"
-            placeholder="Enter Password"
+            placeholder="Ingrese Contraseña"
             name="psw"
             required
           />
 
-          <label for="psw-repeat">Repeat Password</label>
+          <label for="psw-repeat">Repite Contraseña</label>
           <input
             type="password"
-            placeholder="Repeat Password"
+            placeholder="Repita contraseña"
             name="psw-repeat"
             required
           />
+          
 
           <label>
             <input
@@ -130,7 +135,7 @@
 
           <div class="buttons">
             <button type="button" class="cancelbtn">Cancel</button>
-            <button type="submit" class="signupbtn">Login</button>
+            <button type="submit" class="signupbtn">Sign Up</button>
           </div>
         </form>
       </div>

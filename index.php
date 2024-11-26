@@ -40,7 +40,7 @@
               <a href="/" class="nav-link">Inicio</a>
             </li>
             <li class="nav-item">
-              <a href="product.html" class="nav-link">tienda</a>
+              <a href="product.php" class="nav-link">tienda</a>
             </li>
             <li class="nav-item">
             <a href="#terms" class="nav-link">Terminos</a>
@@ -52,7 +52,7 @@
               <a href="#contact" class="nav-link">Contacto</a>
             </li>
             <li class="icons d-flex">
-            <a href="login.html" class="icon">
+            <a href="login.php" class="icon">
               <i class="bx bx-user"></i>
             </a>
             <div class="icon">
@@ -62,7 +62,7 @@
               <i class="bx bx-heart"></i>
               <span class="d-flex">0</span>
             </div>
-            <a href="cart.html" class="icon">
+            <a href="cart.php" class="icon">
               <i class="bx bx-cart"></i>
               <span class="d-flex">0</span>
             </a>
@@ -70,7 +70,7 @@
           </ul>
 
           <div class="icons d-flex">
-            <a href="login.html" class="icon">
+            <a href="login.php" class="icon">
               <i class="bx bx-user"></i>
             </a>
             <div class="icon">
@@ -80,7 +80,7 @@
               <i class="bx bx-heart"></i>
               <span class="d-flex">0</span>
             </div>
-            <a href="cart.html" class="icon">
+            <a href="cart.php" class="icon">
               <i class="bx bx-cart"></i>
               <span class="d-flex">0</span>
             </a>
@@ -162,13 +162,13 @@
       <div class="product-center">
         <div class="product-item">
           <div class="overlay">
-            <a href="productDetails.html" class="product-thumb">
+            <a href="productDetails.php" class="product-thumb">
               <img src="./images/ChaquetaH.jpg" alt="" />
             </a>
           </div>
           <div class="product-info">
             <span>PARA HOMBRE</span>
-            <a href="productDetails.html">Abrigo informal de doble botonadura de lana unicolor</a>
+            <a href="productDetails.php">Abrigo informal de doble botonadura de lana unicolor</a>
             <h4>$35</h4>
           </div>
           <ul class="icons">
