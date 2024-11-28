@@ -9,6 +9,7 @@
   --green: #6cbe02;
   --grey1: #f0f0f0;
   --grey2: #e9d7d3;
+  --red: #E16554;
 }
 
 /* Basic Reset */
@@ -1477,4 +1478,53 @@ th:last-child {
   border: 1px solid var(--purple);
   background-color: var(--purple);
   color: #fff;
+}
+
+.btn-primary{
+  border: 1px solid var(--purple);
+  background-color: var(--white);
+  transition: all 300ms ease-in-out;
+}
+
+.btn-primary:hover{
+  border: 1px solid var(--purple);
+  background-color: var(--purple);
+  color: #fff;
+}
+
+.bx-tada{
+  padding: 7px;
+}
+
+.texto{
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+form .btn-danger{
+  background: var(--red);
+  padding: 4px;
+  border: 1px solid var(--purple);
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.bg-purple{
+  background: var(--purple);
+}
+
+.container .rightT{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btrPadding{
+  padding: 8px;
 }

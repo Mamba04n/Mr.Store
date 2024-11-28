@@ -1,3 +1,7 @@
+<?php
+session_start(); // Asegúrate de iniciar la sesión al principio del archivo
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,38 +30,45 @@
       </a>
 
       <ul class="nav-list d-flex">
-        <li class="nav-item">
-          <a href="index.php" class="nav-link">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a href="product.php" class="nav-link">Tienda</a>
-        </li>
-        <li class="nav-item">
-          <a href="pedidos.php" class="nav-link">Pedidos</a>
-        </li>
-        <li class="nav-item">
-          <a href="inventario.php" class="nav-link">Inventario</a>
-        </li>
-        <!-- <li class="nav-item">
-            <a href="#contact" class="nav-link">Contactar</a>
-          </li> -->
-        <li class="icons d-flex">
-          <a href="login.php" class="icon">
-            <i class="bx bx-user"></i>
-          </a>
-          <div class="icon">
-            <i class="bx bx-search"></i>
-          </div>
-          <div class="icon">
-            <i class="bx bx-heart"></i>
-            <span class="d-flex">0</span>
-          </div>
-          <a href="cart.php" class="icon">
-            <i class="bx bx-cart"></i>
-            <span class="d-flex">0</span>
-          </a>
-        </li>
-      </ul>
+            <li class="nav-item">
+              <a href="index.php" class="nav-link">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a href="product.php" class="nav-link">Tienda</a>
+            </li>
+            <?php
+            if (isset($_SESSION['Cuenta'])) { ?>
+              <li class="nav-item">
+                <a href="pedidos.php" class="nav-link">Pedidos</a>
+              </li>
+            <?php }
+            include "./php/conexion.php";
+            $database = BD;
+            $query = $pdo->prepare("SELECT * FROM {$database}.administradores where id_Usuario = :cuenta");
+            $query->bindParam(":cuenta", $_SESSION['Cuenta'], PDO::PARAM_INT);
+            $query->execute();
+            $resultado = $query->fetch(PDO::FETCH_ASSOC);
+            if ($resultado) { ?>
+              <li class="nav-item">
+                <a href="inventario.php" class="nav-link">Inventario</a>
+              </li> <?php } ?>
+            <li class="icons d-flex">
+              <a href="login.php" class="icon">
+                <i class="bx bx-user"></i>
+              </a>
+              <div class="icon">
+                <i class="bx bx-search"></i>
+              </div>
+              <div class="icon">
+                <i class="bx bx-heart"></i>
+                <span class="d-flex">0</span>
+              </div>
+              <a href="cart.php" class="icon">
+                <i class="bx bx-cart"></i>
+                <span class="d-flex">0</span>
+              </a>
+            </li>
+          </ul>
 
       <div class="icons d-flex">
         <a href="login.php" class="icon">
@@ -106,8 +117,8 @@
         $_REQUEST['page'] = '1';
       }
 
-      include './php/conexion.php';
-      $sentenciaTotal = $pdo->prepare("SELECT * FROM mrstore.productos;");
+      $database = BD;
+      $sentenciaTotal = $pdo->prepare("SELECT * FROM {$database}.productos;");
       $sentenciaTotal->execute();
       $totalProductos = $sentenciaTotal->fetchAll(PDO::FETCH_ASSOC);
 
@@ -119,9 +130,9 @@
         $inicio = 0;
       }
       $final = $registros + $inicio - 1;
-      $sentencia = $pdo->prepare("SELECT * FROM mrstore.productos WHERE id BETWEEN :inicio and :final;");
-      $sentencia->bindParam(":inicio", $inicio, PDO::PARAM_STR);
-      $sentencia->bindParam(":final", $final, PDO::PARAM_STR);
+      $sentencia = $pdo->prepare("SELECT * FROM {$database}.productos WHERE id_Producto BETWEEN :inicio and :final;");
+      $sentencia->bindParam(":inicio", $inicio, PDO::PARAM_INT);
+      $sentencia->bindParam(":final", $final, PDO::PARAM_INT);
       $sentencia->execute();
       $listaProductos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
       $numRegistros = count($totalProductos);
@@ -129,25 +140,27 @@
       <?php foreach ($listaProductos as $producto) { ?>
         <div class="product-item">
           <div class="overlay">
-            <form action="productDetails.php">
-              <input type="hidden" name="id" value="<?php echo $producto['id']; ?>">
-              <input type="hidden" name="nombre" value="<?php echo $producto['Nombre']; ?>">
-              <input type="hidden" name="precio" value="<?php echo $producto['Precio']; ?>">
+            <form action="productDetails.php" method="POST">
+              <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
+              <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
+              <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
+              <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
               <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
-              <button type='submit' class="product-thumb" method='POST' style="border: none; background: none; padding: 0;">
-                <img src="<?php echo $producto['imagen']; ?>" alt=""/>
+              <button type='submit' name='MostrarDetalle' value='detalle' class="product-thumb" style="border: none; background: none; padding: 0;">
+                <img src="<?php echo $producto['imagen']; ?>" alt="" />
               </button>
             </form>
           </div>
           <div class="product-info">
-            <span><?php echo $producto['Nombre']; ?></span>
-            <a href="productDetails.php"><?php echo $producto['Descripcion']; ?></a>
-            <h4><?php echo $producto['Precio'], "$"; ?></h4>
+            <span><?php echo $producto['nombre_Producto']; ?></span>
+            <a href="productDetails.php"><?php echo $producto['descripcion']; ?></a>
+            <h4><?php echo $producto['precio_Producto'], "$"; ?></h4>
           </div>
           <form action="mostrarCarrito.php" method="POST" id='formProducto'>
-            <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id'], COD, KEY); ?>">
-            <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['Nombre'], COD, KEY); ?>">
-            <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['Precio'], COD, KEY); ?>">
+            <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
+            <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
+            <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
+            <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
             <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
             <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
             <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
@@ -165,8 +178,8 @@
       for ($i = 1; $i <= $paginas; $i++) {
         echo "<a href='product.php?page=$i' class='pagina'>$i</a>";
       }
+      echo "<a href='product.php?page=$paginas' class='pagina'><i class='bx bx-right-arrow-alt'></i></a>";
       ?>
-      <a class='pagina'><i class="bx bx-right-arrow-alt"></i></a>
     </div>
   </section>
   <!-- Footer -->

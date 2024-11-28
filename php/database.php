@@ -1,5 +1,6 @@
 <?php
-$conexion = mysqli_connect("localhost", "root", "", "mrstore");
+include "./config.php";
+$conexion = mysqli_connect("localhost", "root", "", BD);
 if ($conexion) {
     // echo 'Conexion Exitosa';
     // exit();

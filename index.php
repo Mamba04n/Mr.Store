@@ -4,16 +4,16 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
 
 <!DOCTYPE php>
 <php lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
     <!-- Boxicons -->
     <link
       href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
-      rel="stylesheet"
-    />
+      rel="stylesheet" />
     <!-- Glide js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.css">
@@ -21,6 +21,7 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
     <link rel="stylesheet" href="./css/styles.css" />
     <title>Mr. Store</title>
   </head>
+
   <body>
     <!-- Header -->
     <header class="header" id="header">
@@ -31,8 +32,10 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
       </div>
       <div class="navigation">
         <div class="nav-center container d-flex">
-        <a href="" class="logo"><h1>Mr. Store</h1></a>
-
+          <a href="" class="logo">
+            <h1>Mr. Store</h1>
+          </a>
+          
           <ul class="nav-list d-flex">
             <li class="nav-item">
               <a href="index.php" class="nav-link">Inicio</a>
@@ -40,28 +43,38 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
             <li class="nav-item">
               <a href="product.php" class="nav-link">Tienda</a>
             </li>
-            <li class="nav-item">
-              <a href="pedidos.php" class="nav-link">Pedidos</a>
-            </li>
-            <li class="nav-item">
-              <a href="inventario.php" class="nav-link">Inventario</a>
-            </li>
+            <?php
+            if (isset($_SESSION['Cuenta'])) { ?>
+              <li class="nav-item">
+                <a href="pedidos.php" class="nav-link">Pedidos</a>
+              </li>
+            <?php }
+            include "./php/conexion.php";
+            $database = BD;
+            $query = $pdo->prepare("SELECT * FROM {$database}.administradores where id_Usuario = :cuenta");
+            $query->bindParam(":cuenta", $_SESSION['Cuenta'], PDO::PARAM_INT);
+            $query->execute();
+            $resultado = $query->fetch(PDO::FETCH_ASSOC);
+            if ($resultado) { ?>
+              <li class="nav-item">
+                <a href="inventario.php" class="nav-link">Inventario</a>
+              </li> <?php } ?>
             <li class="icons d-flex">
-            <a href="login.php" class="icon">
-              <i class="bx bx-user"></i>
-            </a>
-            <div class="icon">
-              <i class="bx bx-search"></i>
-            </div>
-            <div class="icon">
-              <i class="bx bx-heart"></i>
-              <span class="d-flex">0</span>
-            </div>
-            <a href="cart.php" class="icon">
-              <i class="bx bx-cart"></i>
-              <span class="d-flex">0</span>
-            </a>
-          </li>
+              <a href="login.php" class="icon">
+                <i class="bx bx-user"></i>
+              </a>
+              <div class="icon">
+                <i class="bx bx-search"></i>
+              </div>
+              <div class="icon">
+                <i class="bx bx-heart"></i>
+                <span class="d-flex">0</span>
+              </div>
+              <a href="cart.php" class="icon">
+                <i class="bx bx-cart"></i>
+                <span class="d-flex">0</span>
+              </a>
+            </li>
           </ul>
 
           <div class="icons d-flex">
@@ -87,40 +100,40 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
         </div>
       </div>
 
-    <div class="hero">
-      <div class="glide" id="glide_1">
-        <div class="glide__track" data-glide-el="track">
-          <ul class="glide__slides">
-            <li class="glide__slide">
-              <div class="center">
-                <div class="left">
-                  <span class="">Inspiracion 2024</span>
-                  <h1 class="">NUEVAS PRENDAS!!</h1>
-                  <p>Articulos para todo publico</p>
-                  <a href="product.php" class="hero-btn">COMPRA AHORA!!</a>
-                </div>
-                <div class="right">
+      <div class="hero">
+        <div class="glide" id="glide_1">
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides">
+              <li class="glide__slide">
+                <div class="center">
+                  <div class="left">
+                    <span class="">Inspiracion 2024</span>
+                    <h1 class="">NUEVAS PRENDAS!!</h1>
+                    <p>Articulos para todo publico</p>
+                    <a href="product.php" class="hero-btn">COMPRA AHORA!!</a>
+                  </div>
+                  <div class="right">
                     <img class="img1" src="./images/hero-1.png" alt="">
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li class="glide__slide">
-              <div class="center">
-                <div class="left">
-                  <span>Inspiracion 2024</span>
-                  <h1>EL OUTFIT PERFECTO!!</h1>
-                  <p>Encuentra tu outfit con nosotros</p>
-                  <a href="#" class="hero-btn">COMPRA AHORA!!</a>
+              </li>
+              <li class="glide__slide">
+                <div class="center">
+                  <div class="left">
+                    <span>Inspiracion 2024</span>
+                    <h1>EL OUTFIT PERFECTO!!</h1>
+                    <p>Encuentra tu outfit con nosotros</p>
+                    <a href="#" class="hero-btn">COMPRA AHORA!!</a>
+                  </div>
+                  <div class="right">
+                    <img class="img2" src="./images/hero-2.png" alt="">
+                  </div>
                 </div>
-                <div class="right">
-                  <img class="img2" src="./images/hero-2.png" alt="">
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
     </header>
 
     <!-- Categories Section -->
@@ -147,51 +160,79 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
       </div>
     </section>
 
-<!-- New Arrivals -->
-<section class="section new-arrival">
-    <div class="title">
+    <!-- New Arrivals -->
+    <section class="section new-arrival">
+      <div class="title">
         <h1>NUESTROS PRODUCTOS</h1>
         <p>Calidad a tus manos</p>
-    </div>
-    <div class="product-center">
+      </div>
+      <div class="product-center">
         <?php
-        include './php/conexion.php';
-        $sentencia = $pdo->prepare("SELECT * FROM mrstore.productos;");
+        $sentencia = $pdo->prepare("SELECT * FROM {$database}.productos LIMIT 12;");
         $sentencia->execute();
         $listaProductos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         ?>
-
         <?php foreach ($listaProductos as $producto) { ?>
-            <div class="product-item">
-                <div class="overlay">
-                    <a href="productDetails.php" class="product-thumb">
-                        <img src="<?php echo $producto['imagen']; ?>" alt="" />
-                    </a>
-                </div>
-                <div class="product-info">
-                    <span><?php echo $producto['Nombre']; ?></span>
-                    <a href="productDetails.php"><?php echo $producto['Descripcion']; ?></a>
-                    <h4><?php echo $producto['Precio'], "$"; ?></h4>
-                </div>
-                <form action="mostrarCarrito.php" method="POST">
-                    <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id'], COD, KEY); ?>">
-                    <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['Nombre'], COD, KEY); ?>">
-                    <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['Precio'], COD, KEY); ?>">
-                    <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
-                    <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
-                    <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
-                        <i class="bx bx-cart bx-tada"></i>
-                    </button>
-                </form>
+          <div class="product-item">
+            <div class="overlay">
+              <form action="productDetails.php" method="POST">
+                <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
+                <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
+                <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
+                <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
+                <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
+                <button type='submit' name='MostrarDetalle' value='detalle' class="product-thumb" style="border: none; background: none; padding: 0;">
+                  <img src="<?php echo $producto['imagen']; ?>" alt="" />
+                </button>
+              </form>
             </div>
+            <div class="product-info">
+              <span><?php echo $producto['nombre_Producto']; ?></span>
+              <a href="productDetails.php"><?php echo $producto['descripcion']; ?></a>
+              <h4><?php echo $producto['precio_Producto'], "$"; ?></h4>
+            </div>
+            <form action="mostrarCarrito.php" method="POST" id='formProducto'>
+              <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
+              <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
+              <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
+              <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
+              <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
+              <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
+              <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
+                <i class="bx bx-cart bx-tada"></i>
+              </button>
+            </form>
+          </div>
+          <!-- <div class="product-item">
+            <div class="overlay">
+              <a href="productDetails.php" class="product-thumb">
+                <img src="<?php echo $producto['imagen']; ?>" alt="" />
+              </a>
+            </div>
+            <div class="product-info">
+              <span><?php echo $producto['Nombre']; ?></span>
+              <a href="productDetails.php"><?php echo $producto['Descripcion']; ?></a>
+              <h4><?php echo $producto['Precio'], "$"; ?></h4>
+            </div>
+            <form action="mostrarCarrito.php" method="POST">
+              <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id'], COD, KEY); ?>">
+              <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['Nombre'], COD, KEY); ?>">
+              <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['Precio'], COD, KEY); ?>">
+              <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
+              <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
+              <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
+                <i class="bx bx-cart bx-tada"></i>
+              </button>
+            </form>
+          </div> -->
         <?php } ?>
-    </div>
-</section>
+      </div>
+    </section>
 
 
     <!-- Promo -->
 
-    <section class="section banner">  
+    <section class="section banner">
       <div class="left">
         <span class="trend">Mr. Store</span>
         <h1>PROMOCION!!</h1>
@@ -207,7 +248,7 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
 
 
     <!-- Featured -->
-  
+
     <section class="section new-arrival">
       <div class="title">
         <h1>ACCESORIOS</h1>
@@ -294,7 +335,7 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
       <div class="row">
         <div class="col">
           <h2>SOPORTE DE CLIENTE</h2>
-          <p>Amamos atender a nuestros clientes con el mejor servicio por eso si 
+          <p>Amamos atender a nuestros clientes con el mejor servicio por eso si
             tienes alguna duda no dudes en contactarnos
           </p>
           <a href="" class="btn btn-1">Contacto</a>
@@ -303,7 +344,7 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
           <form action="">
             <div>
               <input type="email" placeholder="Email Address">
-            <a href="">enviar</a>
+              <a href="">enviar</a>
             </div>
           </form>
         </div>
@@ -321,10 +362,10 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
         </div>
         <div class="col d-flex">
           <span><i class='bx bxl-facebook-square'></i></span>
-          <span><i class='bx bxl-instagram-alt' ></i></span>
-          <span><i class='bx bxl-github' ></i></span>
-          <span><i class='bx bxl-twitter' ></i></span>
-          <span><i class='bx bxl-pinterest' ></i></span>
+          <span><i class='bx bxl-instagram-alt'></i></span>
+          <span><i class='bx bxl-github'></i></span>
+          <span><i class='bx bxl-twitter'></i></span>
+          <span><i class='bx bxl-pinterest'></i></span>
         </div>
       </div>
     </footer>
