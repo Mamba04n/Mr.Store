@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 </div>
                 <div class="right">
-                    <span><?php echo $_SESSION['DETALLEPROD']['nombre'] ?></span>
+                    <span><?php echo $_SESSION['DETALLEPROD']['nombre'] . " - " . $_SESSION['DETALLEPROD']['color']?> </span>
                     <h1><?php echo $_SESSION['DETALLEPROD']['descripcion'] ?></h1>
                     <div class="price">$ <?php echo $_SESSION['DETALLEPROD']['precio'] ?></div>
                     <form>

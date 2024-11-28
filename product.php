@@ -145,6 +145,7 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
               <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
               <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
               <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
+              <input type="hidden" name="color" value="<?php echo openssl_encrypt($producto['color'], COD, KEY); ?>">
               <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
               <button type='submit' name='MostrarDetalle' value='detalle' class="product-thumb" style="border: none; background: none; padding: 0;">
                 <img src="<?php echo $producto['imagen']; ?>" alt="" />

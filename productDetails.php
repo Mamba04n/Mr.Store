@@ -7,14 +7,16 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         $nombre = openssl_decrypt($_POST['nombre'], COD, KEY);
         $precio = openssl_decrypt($_POST['precio'], COD, KEY);
         $descripcion = openssl_decrypt($_POST['descripcion'],COD,KEY);
+        $color = openssl_decrypt($_POST['color'],COD,KEY);
         $imagen = $_POST['imagen']; // Asegúrate de que el campo 'imagen' esté presente en el formulario
-        if (is_numeric($id) && is_string($nombre) && is_numeric($precio) && is_string($imagen) && is_string($descripcion)){
+        if (is_numeric($id) && is_string($nombre) && is_numeric($precio) && is_string($imagen) && is_string($descripcion) && is_string($color)){
             $producto = array(
                 'id' => $id,
                 'nombre' => $nombre,
                 'precio' => $precio,
                 'imagen' => $imagen,
-                'descripcion' => $descripcion
+                'descripcion' => $descripcion,
+                'color' => $color
             );
 
             $_SESSION['DETALLEPROD'] = $producto;

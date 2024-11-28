@@ -174,57 +174,36 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
         ?>
         <?php foreach ($listaProductos as $producto) { ?>
           <div class="product-item">
-            <div class="overlay">
-              <form action="productDetails.php" method="POST">
-                <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
-                <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
-                <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
-                <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
-                <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
-                <button type='submit' name='MostrarDetalle' value='detalle' class="product-thumb" style="border: none; background: none; padding: 0;">
-                  <img src="<?php echo $producto['imagen']; ?>" alt="" />
-                </button>
-              </form>
-            </div>
-            <div class="product-info">
-              <span><?php echo $producto['nombre_Producto']; ?></span>
-              <a href="productDetails.php"><?php echo $producto['descripcion']; ?></a>
-              <h4><?php echo $producto['precio_Producto'], "$"; ?></h4>
-            </div>
-            <form action="mostrarCarrito.php" method="POST" id='formProducto'>
+          <div class="overlay">
+            <form action="productDetails.php" method="POST">
               <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
               <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
               <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
               <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
-              <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
+              <input type="hidden" name="color" value="<?php echo openssl_encrypt($producto['color'], COD, KEY); ?>">
               <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
-              <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
-                <i class="bx bx-cart bx-tada"></i>
+              <button type='submit' name='MostrarDetalle' value='detalle' class="product-thumb" style="border: none; background: none; padding: 0;">
+                <img src="<?php echo $producto['imagen']; ?>" alt="" />
               </button>
             </form>
           </div>
-          <!-- <div class="product-item">
-            <div class="overlay">
-              <a href="productDetails.php" class="product-thumb">
-                <img src="<?php echo $producto['imagen']; ?>" alt="" />
-              </a>
-            </div>
-            <div class="product-info">
-              <span><?php echo $producto['Nombre']; ?></span>
-              <a href="productDetails.php"><?php echo $producto['Descripcion']; ?></a>
-              <h4><?php echo $producto['Precio'], "$"; ?></h4>
-            </div>
-            <form action="mostrarCarrito.php" method="POST">
-              <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id'], COD, KEY); ?>">
-              <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['Nombre'], COD, KEY); ?>">
-              <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['Precio'], COD, KEY); ?>">
-              <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
-              <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
-              <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
-                <i class="bx bx-cart bx-tada"></i>
-              </button>
-            </form>
-          </div> -->
+          <div class="product-info">
+            <span><?php echo $producto['nombre_Producto']; ?></span>
+            <a href="productDetails.php"><?php echo $producto['descripcion']; ?></a>
+            <h4><?php echo $producto['precio_Producto'], "$"; ?></h4>
+          </div>
+          <form action="mostrarCarrito.php" method="POST" id='formProducto'>
+            <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
+            <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
+            <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
+            <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
+            <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
+            <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
+            <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
+              <i class="bx bx-cart bx-tada"></i>
+            </button>
+          </form>
+        </div>
         <?php } ?>
       </div>
     </section>
