@@ -1,3 +1,28 @@
+<?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['action'])) {
+        if ($_POST['action'] == 'clear') {
+            unset($_SESSION['CARRITO']);
+            header('Location: cart.php');
+            exit();
+        } elseif ($_POST['action'] == 'remove') {
+            $id = $_POST['id'];
+            foreach ($_SESSION['CARRITO'] as $index => $item) {
+                if ($item['id'] == $id) {
+                    unset($_SESSION['CARRITO'][$index]);
+                    $_SESSION['CARRITO'] = array_values($_SESSION['CARRITO']); // Reindexar el array
+                    break;
+                }
+            }
+            header('Location: cart.php');
+            exit();
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +35,7 @@
     />
     <!-- Custom StyleSheet -->
     <link rel="stylesheet" href="./css/styles.css" />
-    <title>Your Cart</title>
+    <title>Login</title>
   </head>
   <body>
     <!-- Navigation -->
@@ -26,7 +51,7 @@
     </div>
     <div class="navigation">
       <div class="nav-center container d-flex">
-        <a href="index.php" class="logo"><h1>Dans</h1></a>
+        <a href="index.php" class="logo"><h1>Mr. Store</h1></a>
 
         <ul class="nav-list d-flex">
           <li class="nav-item">
@@ -84,184 +109,59 @@
         </div>
       </div>
     </div>
-
-    <!-- Cart Items -->
+<body>
     <div class="container cart">
-      <table>
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Subtotal</th>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-2.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $50.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$50.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-3.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $90.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$90.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-4.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $60.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$60.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-5.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $60.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$60.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-6.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $60.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$60.00</td>
-        </tr>
-      </table>
-      <div class="total-price">
-        <table>
-          <tr>
-            <td>Subtotal</td>
-            <td>$200</td>
-          </tr>
-          <tr>
-            <td>Tax</td>
-            <td>$50</td>
-          </tr>
-          <tr>
-            <td>Total</td>
-            <td>$250</td>
-          </tr>
-        </table>
-        <a href="#" class="checkout btn">Proceed To Checkout</a>
-      </div>
+        <h1>Carrito de Compras</h1>
+        <?php if (!empty($_SESSION['CARRITO'])) { ?>
+            <p>Total de elementos en el carrito: <?php echo count($_SESSION['CARRITO']); ?></p>
+            <table>
+                <tr>
+                    <th>Descripcion</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                    <th>--</th>
+                </tr>
+                <?php 
+                $total = 0;
+                foreach ($_SESSION['CARRITO'] as $item) { 
+                    $totalItem = $item['precio'] * $item['cantidad'];
+                    $total += $totalItem;
+                ?>
+                <tr>
+                    <td>
+                        <div class="cart-info">
+                            <img src="<?php echo isset($item['imagen']) ? $item['imagen'] : 'default.jpg'; ?>" alt="" />
+                            <div>
+                                <p><?php echo isset($item['nombre']) ? $item['nombre'] : 'N/A'; ?></p>
+                                <span>Price: <?php echo isset($item['precio']) ? $item['precio'] : 'N/A'; ?></span> <br />
+                                <form action="cart.php" method="POST" style="display:inline;">
+                                    <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
+                                    <input type="hidden" name="action" value="remove">
+                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                    <td><input type="number" value="<?php echo isset($item['cantidad']) ? $item['cantidad'] : 0; ?>" min="1" /></td>
+                    <td><?php echo isset($item['precio']) ? $item['precio'] : 'N/A'; ?></td>
+                    <td><?php echo $totalItem; ?></td>
+                </tr>
+                <?php } ?>
+                <tr>
+                    <td colspan="3" align="right"><strong>Total:</strong></td>
+                    <td><strong><?php echo $total; ?></strong></td>
+                    <td></td>
+                </tr>
+            </table>
+            <form action="cart.php" method="POST">
+                <input type="hidden" name="action" value="clear">
+                <button type="submit" class="btn btn-danger">Vaciar Carrito</button>
+            </form>
+        <?php } else { ?>
+            <p>El carrito está vacío</p>
+        <?php } ?>
     </div>
-
-    <!-- Latest Products -->
-    <section class="section featured">
-      <div class="top container">
-        <h1>Latest Products</h1>
-        <a href="#" class="view-more">View more</a>
-      </div>
-      <div class="product-center container">
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-6.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-1.jpg" alt="" />
-            </a>
-            <span class="discount">40%</span>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-3.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-2.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer">
       <div class="row">

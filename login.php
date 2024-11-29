@@ -26,7 +26,7 @@
     </div>
     <div class="navigation">
       <div class="nav-center container d-flex">
-        <a href="index.php" class="logo"><h1>Dans</h1></a>
+        <a href="index.php" class="logo"><h1>Mr. Store</h1></a>
 
         <ul class="nav-list d-flex">
           <li class="nav-item">
@@ -86,49 +86,39 @@
     </div>
     <!-- Login -->
     <div class="container">
-      <div class="login-form">
-        <form action="">
-          <h1>Login</h1>
-          <p>
-            Already have an account? Login in or
-            <a href="signup.html">Sign Up</a>
-          </p>
+        <div class="login-form">
+            <form action="./php/login_valider.php" method="POST">
+                <h1>Iniciar Sesion</h1>
+                <p>
+                    Ya tienes una cuenta o
+                    <a href="signup.php">Registrarse</a>
+                </p>
 
+                <label for="email">Usuario</label>
+                <input type="text" placeholder="Ingrese Usuario" name="usuario" required />
 
-          <label for="email">Usuario</label>
-          <input type="text" placeholder="Ingrese Usuario" name="usuario" required />
+                <label for="psw">Password</label>
+                <input type="password" placeholder="Ingrese contraseña" name="psw" required />
 
-          <label for="psw">Password</label>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            name="psw"
-            required
-          />
+                <label>
+                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom: 15px" />
+                    Remember me
+                </label>
 
+                <p>
+                    Creando una cuenta indica que estas de acuerdo con nuestros
+                    <a href="#">Terminos y condiciones</a>.
+                </p>
 
-          <label>
-            <input
-              type="checkbox"
-              checked="checked"
-              name="remember"
-              style="margin-bottom: 15px"
-            />
-            Remember me
-          </label>
-
-          <p>
-            By creating an account you agree to our
-            <a href="#">Terms & Privacy</a>.
-          </p>
-
-          <div class="buttons">
-            <button type="button" class="cancelbtn">Cancel</button>
-            <button type="submit" class="signupbtn" href="index.php">Login</button>
-          </div>
-        </form>
-      </div>
+                <div class="buttons">
+                    <button type="button" class="cancelbtn">Cancelar</button>
+                    <button type="submit" class="signupbtn" href="index.php">Iniciar Sesion</button>
+                </div>
+            </form>
+        </div>
     </div>
+
+
 
     <!-- Footer -->
     <footer class="footer">

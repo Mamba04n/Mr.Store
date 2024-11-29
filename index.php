@@ -1,3 +1,7 @@
+<?php
+session_start(); // Asegúrate de iniciar la sesión al principio del archivo
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -64,9 +68,7 @@
             </div>
             <a href="cart.php" class="icon">
               <i class="bx bx-cart"></i>
-              <span class="d-flex">0</span>
-            </a>
-          </li>
+              <span class="d-flex" id="cart-count"><?php echo isset($_SESSION['CARRITO']) ? count($_SESSION['CARRITO']) : 0; ?></span></li>
           </ul>
 
           <div class="icons d-flex">
@@ -146,162 +148,52 @@
         <div class="cat">
           <img src="./images/cat1.jpg" alt="" />
           <div>
-            <p>MHOMBRES</p>
+            <p>HOMBRES</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- New Arrivals -->
-    <section class="section new-arrival">
-      <div class="title">
+<!-- New Arrivals -->
+<section class="section new-arrival">
+    <div class="title">
         <h1>NUESTROS PRODUCTOS</h1>
         <p>Calidad a tus manos</p>
-      </div>
+    </div>
+    <div class="product-center">
+        <?php
+        include './php/conexion.php';
+        $sentencia = $pdo->prepare("SELECT * FROM mrstore.productos;");
+        $sentencia->execute();
+        $listaProductos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+        ?>
 
-      <div class="product-center">
-        <div class="product-item">
-          <div class="overlay">
-            <a href="productDetails.php" class="product-thumb">
-              <img src="./images/ChaquetaH.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>PARA HOMBRE</span>
-            <a href="productDetails.php">Abrigo informal de doble botonadura de lana unicolor</a>
-            <h4>$35</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/SudaderaH.jpg" alt="" />
-            </a>
-            <span class="discount">50%</span>
-          </div>
-
-          <div class="product-info">
-            <span>PARA HOMBRE</span>
-            <a href="">Camisa casual manga larga con cuello redondo de color negro</a>
-            <h4>$19</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/JeanH.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>PARA HOMBRE</span>
-            <a href="">Jean estilo casual para hombre estilo entallado</a>
-            <h4>$33</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/pantalonH.jpg" alt="" />
-            </a>
-            <span class="discount">50%</span>
-          </div>
-          <div class="product-info">
-            <span>PARA HOMBRE</span>
-            <a href="">Jean estilo casual para hombre estilo entallado</a>
-            <h4>$24</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/pegadoM.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>PARA MUJER</span>
-            <a href="">Sweetro Tops sin tirantes estilo Y2K</a>
-            <h4>$12</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/PijamaM.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>PARA MUJER</span>
-            <a href="">Conjunto de pijama de mujer con estampado</a>
-            <h4>$15</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/vestidoM.jpg" alt="" />
-            </a>
-            <span class="discount">50%</span>
-          </div>
-          <div class="product-info">
-            <span>PARA MUJER</span>
-            <a href="">Vestido de hombro descubierto</a>
-            <h4>$12</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/conjuntoM.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>PARA MUJER</span>
-            <a href="">Conjunto de dos piezas EZwear</a>
-            <h4>$30</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-      </div>
-    </section>
+        <?php foreach ($listaProductos as $producto) { ?>
+            <div class="product-item">
+                <div class="overlay">
+                    <a href="productDetails.php" class="product-thumb">
+                        <img src="<?php echo $producto['imagen']; ?>" alt="" />
+                    </a>
+                </div>
+                <div class="product-info">
+                    <span><?php echo $producto['Nombre']; ?></span>
+                    <a href="productDetails.php"><?php echo $producto['Descripcion']; ?></a>
+                    <h4><?php echo $producto['Precio'], "$"; ?></h4>
+                </div>
+                <form action="mostrarCarrito.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id'], COD, KEY); ?>">
+                    <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['Nombre'], COD, KEY); ?>">
+                    <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['Precio'], COD, KEY); ?>">
+                    <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
+                    <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
+                    <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
+                        <i class="bx bx-cart bx-tada"></i>
+                    </button>
+                </form>
+            </div>
+        <?php } ?>
+    </div>
+</section>
 
 
     <!-- Promo -->
@@ -395,10 +287,15 @@
             <a href="">Reloj inteligente compatible con IOS y Android</a>
             <h4>$10</h4>
           </div>
+        
           <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
+            <button>
+              <li><i class="bx bx-heart"></i></li>
+            </button>
+            
             <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
+            <button><li><i class="bx bx-cart"></i></li></button>
+            
           </ul>
         </div>
 

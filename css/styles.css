@@ -609,6 +609,25 @@ Hero Media Query
     font-size: 1.8rem;
   }
 }
+.cart-button {
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cursor de puntero */
+  padding: 0; /* Sin padding */
+  margin: 0; /* Sin margen */
+  display: flex; /* Flexbox para centrar el contenido */
+  align-items: center; /* Centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+}
+
+.cart-button i {
+  font-size: 24px; /* Tamaño del ícono */
+  color: #000; /* Color del ícono */
+}
+
+.cart-button:hover i {
+  color: #007bff; /* Color del ícono al pasar el ratón */
+}
 
 /* Banner */
 

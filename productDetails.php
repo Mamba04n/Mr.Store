@@ -27,7 +27,7 @@
     </div>
     <div class="navigation">
       <div class="nav-center container d-flex">
-        <a href="index.php" class="logo"><h1>Dans</h1></a>
+        <a href="index.php" class="logo"><h1>Mr. Store</h1></a>
 
         <ul class="nav-list d-flex">
           <li class="nav-item">

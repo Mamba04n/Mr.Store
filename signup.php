@@ -10,7 +10,7 @@
     />
     <!-- Custom StyleSheet -->
     <link rel="stylesheet" href="./css/styles.css" />
-    <title>Mr. Store</title>
+    <title>Sign Up</title>
   </head>
   <body>
     <!-- Navigation -->
@@ -26,7 +26,7 @@
     </div>
     <div class="navigation">
       <div class="nav-center container d-flex">
-        <a href="index.php" class="logo"><h1>Dans</h1></a>
+        <a href="index.php" class="logo"><h1>Mr. Store</h1></a>
 
         <ul class="nav-list d-flex">
           <li class="nav-item">
@@ -86,60 +86,43 @@
     </div>
     <!-- Login -->
     <div class="container">
-      <div class="login-form">
-        <form action="">
-          <h1>Sign Up</h1>
-          <p>
-            Please fill in this form to create an account. or
-            <a href="login.php">Login</a>
-          </p>
+          <div class="login-form">
+              <form action="./php/registro.php" method="POST">
+                  <h1>Registrate</h1>
+                  <p>
+                      Por favor llena este formulario para crear una cuenta o
+                      <a href="login.php">Iniciar Sesion</a>
+                  </p>
+                  <label for="email">Nombre Completo</label>
+                  <input type="text" placeholder="Ingrese Su Nombre" name="nombre" required />
 
-          <label for="email">Nombre Completo</label>
-          <input type="text" placeholder="Ingrese Nombre Completo" name="Nombre" required />
-          <label for="email">Correo electronico</label>
-          <input type="text" placeholder="Ingrese Correo electronico" name="correo" required />
-          <label for="email">Usuario</label>
-          <input type="text" placeholder="Ingrese Usuario" name="usuario" required />
+                  <label for="email">Email</label>
+                  <input type="text" placeholder="Ingrese el Email" name="correo" required />
 
-          <label for="psw">Contraseña</label>
-          <input
-            type="password"
-            placeholder="Ingrese Contraseña"
-            name="psw"
-            required
-          />
+                  <label for="email">Usuario</label>
+                  <input type="text" placeholder="Ingrese Su Usuario" name="usuario" required />
 
-          <label for="psw-repeat">Repite Contraseña</label>
-          <input
-            type="password"
-            placeholder="Repita contraseña"
-            name="psw-repeat"
-            required
-          />
-          
+                  <label for="psw">Contraseña</label>
+                  <input type="password" placeholder="Enter Password" name="psw" required />
 
-          <label>
-            <input
-              type="checkbox"
-              checked="checked"
-              name="remember"
-              style="margin-bottom: 15px"
-            />
-            Remember me
-          </label>
+                  <label>
+                      <input type="checkbox" checked="checked" name="remember" style="margin-bottom: 15px" />
+                      Remember me
+                  </label>
 
-          <p>
-            By creating an account you agree to our
-            <a href="#">Terms & Privacy</a>.
-          </p>
+                  <p>
+                      By creating an account you agree to our
+                      <a href="#">Terms & Privacy</a>.
+                  </p>
 
-          <div class="buttons">
-            <button type="button" class="cancelbtn">Cancel</button>
-            <button type="submit" class="signupbtn">Sign Up</button>
+                  <div class="buttons">
+                      <button type="button" class="cancelbtn">Cancel</button>
+                      <button type="submit" class="signupbtn">Sign Up</button>
+                  </div>
+              </form>
           </div>
-        </form>
       </div>
-    </div>
+
 
     <!-- Footer -->
     <footer class="footer">
