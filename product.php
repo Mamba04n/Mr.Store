@@ -30,45 +30,24 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
       </a>
 
       <ul class="nav-list d-flex">
-            <li class="nav-item">
-              <a href="index.php" class="nav-link">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a href="product.php" class="nav-link">Tienda</a>
-            </li>
-            <?php
-            if (isset($_SESSION['Cuenta'])) { ?>
-              <li class="nav-item">
-                <a href="pedidos.php" class="nav-link">Pedidos</a>
-              </li>
-            <?php }
-            include "./php/conexion.php";
-            $database = BD;
-            $query = $pdo->prepare("SELECT * FROM {$database}.administradores where id_Usuario = :cuenta");
-            $query->bindParam(":cuenta", $_SESSION['Cuenta'], PDO::PARAM_INT);
-            $query->execute();
-            $resultado = $query->fetch(PDO::FETCH_ASSOC);
-            if ($resultado) { ?>
-              <li class="nav-item">
-                <a href="inventario.php" class="nav-link">Inventario</a>
-              </li> <?php } ?>
-            <li class="icons d-flex">
-              <a href="login.php" class="icon">
-                <i class="bx bx-user"></i>
-              </a>
-              <div class="icon">
-                <i class="bx bx-search"></i>
-              </div>
-              <div class="icon">
-                <i class="bx bx-heart"></i>
-                <span class="d-flex">0</span>
-              </div>
-              <a href="cart.php" class="icon">
-                <i class="bx bx-cart"></i>
-                <span class="d-flex">0</span>
-              </a>
-            </li>
-          </ul>
+        <li class="nav-item">
+          <a href="index.php" class="nav-link">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a href="product.php" class="nav-link">Tienda</a>
+        </li>
+        <?php
+        if (isset($_SESSION['Cuenta'])) { ?>
+          <li class="nav-item">
+            <a href="pedidos.php" class="nav-link">Pedidos</a>
+          </li>
+        <?php }
+        if (isset($_SESSION['admin']) ? $_SESSION['admin'] : false) { ?>
+          <li class="nav-item">
+            <a href="inventario.php" class="nav-link">Inventario</a>
+          </li> <?php } ?>
+
+      </ul>
 
       <div class="icons d-flex">
         <a href="login.php" class="icon">
@@ -81,10 +60,12 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
           <i class="bx bx-heart"></i>
           <span class="d-flex">0</span>
         </div>
-        <a href="cart.php" class="icon">
-          <i class="bx bx-cart "></i>
-          <span class="d-flex">0</span>
-        </a>
+        <?php if (isset($_SESSION['admin']) ? !$_SESSION['admin'] : false) { ?>
+          <a href="cart.php" class="icon">
+            <i class="bx bx-cart"></i>
+            <span class="d-flex">0</span>
+          </a>
+        <?php } ?>
       </div>
 
       <div class="hamburger">
@@ -116,7 +97,7 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
       if ($_REQUEST['page'] == "") {
         $_REQUEST['page'] = '1';
       }
-
+      include "./php/conexion.php";
       $database = BD;
       $sentenciaTotal = $pdo->prepare("SELECT * FROM {$database}.productos;");
       $sentenciaTotal->execute();

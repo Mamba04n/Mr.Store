@@ -28,29 +28,29 @@
       </a>
 
       <ul class="nav-list d-flex">
-            <li class="nav-item">
-              <a href="index.php" class="nav-link">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a href="product.php" class="nav-link">Tienda</a>
-            </li>
-            <?php
-            if (isset($_SESSION['Cuenta'])) { ?>
-              <li class="nav-item">
-                <a href="pedidos.php" class="nav-link">Pedidos</a>
-              </li>
-            <?php }
-            include "./php/conexion.php";
-            $database = BD;
-            $query = $pdo->prepare("SELECT * FROM {$database}.administradores where id_Usuario = :cuenta");
-            $query->bindParam(":cuenta", $_SESSION['Cuenta'], PDO::PARAM_INT);
-            $query->execute();
-            $resultado = $query->fetch(PDO::FETCH_ASSOC);
-            if ($resultado) { ?>
-              <li class="nav-item">
-                <a href="inventario.php" class="nav-link">Inventario</a>
-              </li> <?php } ?>
-            <li class="icons d-flex">
+        <li class="nav-item">
+          <a href="index.php" class="nav-link">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a href="product.php" class="nav-link">Tienda</a>
+        </li>
+        <?php
+        if (isset($_SESSION['Cuenta'])) { ?>
+          <li class="nav-item">
+            <a href="pedidos.php" class="nav-link">Pedidos</a>
+          </li>
+        <?php }
+        include "./php/conexion.php";
+        $database = BD;
+        $query = $pdo->prepare("SELECT * FROM {$database}.administradores where id_Usuario = :cuenta");
+        $query->bindParam(":cuenta", $_SESSION['Cuenta'], PDO::PARAM_INT);
+        $query->execute();
+        $resultado = $query->fetch(PDO::FETCH_ASSOC);
+        if ($resultado) { ?>
+          <li class="nav-item">
+            <a href="inventario.php" class="nav-link">Inventario</a>
+          </li> <?php } ?>
+        <!-- <li class="icons d-flex">
               <a href="login.php" class="icon">
                 <i class="bx bx-user"></i>
               </a>
@@ -65,8 +65,8 @@
                 <i class="bx bx-cart"></i>
                 <span class="d-flex">0</span>
               </a>
-            </li>
-          </ul>
+            </li> -->
+      </ul>
 
       <div class="icons d-flex">
         <a href="login.php" class="icon">
@@ -79,10 +79,12 @@
           <i class="bx bx-heart"></i>
           <span class="d-flex">0</span>
         </div>
-        <a href="cart.php" class="icon">
-          <i class="bx bx-cart"></i>
-          <span class="d-flex">0</span>
-        </a>
+        <?php if (isset($_SESSION['admin']) ? !$_SESSION['admin'] : false) { ?>
+          <a href="cart.php" class="icon">
+            <i class="bx bx-cart"></i>
+            <span class="d-flex">0</span>
+          </a>
+        <?php } ?>
       </div>
 
       <div class="hamburger">
@@ -124,25 +126,27 @@
         </form>
       </div>
     </div>
-  <?php } else {header('Location: perfil.php'); }?>
+  <?php } else {
+    header('Location: perfil.php');
+  } ?>
   <!-- Footer -->
   <footer class="footer">
-      <div class="row">
-        <div class="col d-flex">
-          <h4>INFORMACION</h4>
-          <a href="">Acerca de nosotros</a>
-          <a href="">Contactanos</a>
-          <a href="">Terminos</a>
-        </div>
-        <div class="col d-flex">
-          <span><i class='bx bxl-facebook-square'></i></span>
-          <span><i class='bx bxl-instagram-alt'></i></span>
-          <span><i class='bx bxl-github'></i></span>
-          <span><i class='bx bxl-twitter'></i></span>
-          <span><i class='bx bxl-pinterest'></i></span>
-        </div>
+    <div class="row">
+      <div class="col d-flex">
+        <h4>INFORMACION</h4>
+        <a href="">Acerca de nosotros</a>
+        <a href="">Contactanos</a>
+        <a href="">Terminos</a>
       </div>
-    </footer>
+      <div class="col d-flex">
+        <span><i class='bx bxl-facebook-square'></i></span>
+        <span><i class='bx bxl-instagram-alt'></i></span>
+        <span><i class='bx bxl-github'></i></span>
+        <span><i class='bx bxl-twitter'></i></span>
+        <span><i class='bx bxl-pinterest'></i></span>
+      </div>
+    </div>
+  </footer>
 
   <!-- Custom Script -->
   <script src="./js/index.js"></script>

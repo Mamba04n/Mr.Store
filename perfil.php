@@ -42,12 +42,7 @@ include "./php/conexion.php";
                         <a href="pedidos.php" class="nav-link">Pedidos</a>
                     </li>
                 <?php }
-                $database = BD;
-                $query = $pdo->prepare("SELECT * FROM {$database}.administradores where id_Usuario = :cuenta");
-                $query->bindParam(":cuenta", $_SESSION['Cuenta'], PDO::PARAM_INT);
-                $query->execute();
-                $resultado = $query->fetch(PDO::FETCH_ASSOC);
-                if ($resultado) { ?>
+                if (isset($_SESSION['admin']) ? $_SESSION['admin'] : false) { ?>
                     <li class="nav-item">
                         <a href="inventario.php" class="nav-link">Inventario</a>
                     </li> <?php } ?>
@@ -96,16 +91,18 @@ include "./php/conexion.php";
         <div class="login-form">
             <form action="actualizarPerfil.php" method="POST">
                 <h1 class="title">Perfil</h1>
-                <?php 
-                $id = $_SESSION['Cuenta'];
-                $query = $pdo ->prepare("SELECT * FROM usuarios a JOIN clientes b ON a.id_Usuario = b.id_Usuario where a.id_Usuario = :id");
-                $query -> bindParam(":id",$id,PDO::PARAM_STR);
-                $query -> execute();
-                $cuenta = $query -> fetch(PDO::FETCH_ASSOC);
-                if (isset($_SESSION['Cuenta'])) { ?>
+                <?php
+                if(isset($_SESSION['Cuenta'])){} else {echo "false";}
+                if (isset($_SESSION['Cuenta'])) {
+                    $id = $_SESSION['Cuenta'];
+                    $query = $pdo->prepare("SELECT * FROM usuarios where id_Usuario = :id");
+                    $query->bindParam(":id", $id, PDO::PARAM_STR);
+                    $query->execute();
+                    $cuenta = $query->fetch(PDO::FETCH_ASSOC);
+                ?>
                     <label for="nombre">Nombre Completo</label>
-                    <input type="text" placeholder="Ingrese su Nombre" name="nombre" value="<?php echo $cuenta['nombre_Completo']?>" required />
-                    <input type="hidden" name="id" value="<?php echo $id?>" required />
+                    <input type="text" placeholder="Ingrese su Nombre" name="nombre" value="<?php echo $cuenta['nombre_Completo'] ?>" required />
+                    <input type="hidden" name="id" value="<?php echo $id ?>" required />
 
                     <label for="cedula">Cedula de identidad (con guiones)</label>
                     <input type="text" placeholder="Ingrese su cedula" name="cedula" id="cedula" value="<?php echo $cuenta['cedula'] ?>" required />
@@ -118,9 +115,15 @@ include "./php/conexion.php";
 
                     <label for="psw">Contraseña</label>
                     <input type="password" placeholder="Ingrese la contraseña" name="psw" value="<?php echo $cuenta['contraseña'] ?>" required />
-
-                    <label for="direccion">Direccion</label>
-                    <input type="text" placeholder="Ingrese su direccion" name="direccion" value="<?php echo $cuenta['direccion'] ?>" required />
+                    <?php if (!$_SESSION['admin']) { 
+                        $queryCliente = $pdo -> prepare("SELECT * FROM clientes WHERE id_Usuario = :id");
+                        $queryCliente -> bindParam(":id", $id, PDO::PARAM_STR);
+                        $queryCliente -> execute();
+                        $cliente = $queryCliente -> fetch(PDO::FETCH_ASSOC);
+                        ?>
+                        <label for="direccion">Direccion</label>
+                        <input type="text" placeholder="Ingrese su direccion" name="direccion" value="<?php echo $cliente['direccion'] ?>" required />
+                    <?php } ?>
                 <?php } ?>
                 <button type="submit">Actualizar perfil</button>
             </form>

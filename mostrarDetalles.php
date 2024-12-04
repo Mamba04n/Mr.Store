@@ -59,31 +59,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <li class="nav-item">
                     <a href="product.php" class="nav-link">Tienda</a>
                 </li>
-                <li class="nav-item">
-                    <a href="pedidos.php" class="nav-link">Pedidos</a>
-                </li>
-                <li class="nav-item">
-                    <a href="inventario.php" class="nav-link">Inventario</a>
-                </li>
-                <!-- <li class="nav-item">
-            <a href="#contact" class="nav-link">Contactar</a>
-          </li> -->
-                <li class="icons d-flex">
-                    <a href="login.php" class="icon">
-                        <i class="bx bx-user"></i>
-                    </a>
-                    <div class="icon">
-                        <i class="bx bx-search"></i>
-                    </div>
-                    <div class="icon">
-                        <i class="bx bx-heart"></i>
-                        <span class="d-flex">0</span>
-                    </div>
-                    <a href="cart.php" class="icon">
-                        <i class="bx bx-cart"></i>
-                        <span class="d-flex">0</span>
-                    </a>
-                </li>
+                <?php
+                if (isset($_SESSION['Cuenta'])) { ?>
+                    <li class="nav-item">
+                        <a href="pedidos.php" class="nav-link">Pedidos</a>
+                    </li>
+                <?php }
+                if (isset($_SESSION['admin']) ? $_SESSION['admin'] : false) { ?>
+                    <li class="nav-item">
+                        <a href="inventario.php" class="nav-link">Inventario</a>
+                    </li> <?php } ?>
             </ul>
 
             <div class="icons d-flex">
@@ -97,10 +82,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <i class="bx bx-heart"></i>
                     <span class="d-flex">0</span>
                 </div>
-                <a href="cart.php" class="icon">
-                    <i class="bx bx-cart "></i>
-                    <span class="d-flex">0</span>
-                </a>
+                <?php if (isset($_SESSION['admin']) ? !$_SESSION['admin'] : false) { ?>
+                    <a href="cart.php" class="icon">
+                        <i class="bx bx-cart"></i>
+                        <span class="d-flex">0</span>
+                    </a>
+                <?php } ?>
             </div>
 
             <div class="hamburger">
@@ -119,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 </div>
                 <div class="right">
-                    <span><?php echo $_SESSION['DETALLEPROD']['nombre'] . " - " . $_SESSION['DETALLEPROD']['color']?> </span>
+                    <span><?php echo $_SESSION['DETALLEPROD']['nombre'] . " - " . $_SESSION['DETALLEPROD']['color'] ?> </span>
                     <h1><?php echo $_SESSION['DETALLEPROD']['descripcion'] ?></h1>
                     <div class="price">$ <?php echo $_SESSION['DETALLEPROD']['precio'] ?></div>
                     <form>

@@ -35,7 +35,7 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
           <a href="" class="logo">
             <h1>Mr. Store</h1>
           </a>
-          
+
           <ul class="nav-list d-flex">
             <li class="nav-item">
               <a href="index.php" class="nav-link">Inicio</a>
@@ -49,17 +49,12 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
                 <a href="pedidos.php" class="nav-link">Pedidos</a>
               </li>
             <?php }
-            include "./php/conexion.php";
-            $database = BD;
-            $query = $pdo->prepare("SELECT * FROM {$database}.administradores where id_Usuario = :cuenta");
-            $query->bindParam(":cuenta", $_SESSION['Cuenta'], PDO::PARAM_INT);
-            $query->execute();
-            $resultado = $query->fetch(PDO::FETCH_ASSOC);
-            if ($resultado) { ?>
+            if (isset($_SESSION['admin']) ? $_SESSION['admin'] : false) { ?>
               <li class="nav-item">
                 <a href="inventario.php" class="nav-link">Inventario</a>
               </li> <?php } ?>
-            <li class="icons d-flex">
+              
+            <!-- <li class="icons d-flex">
               <a href="login.php" class="icon">
                 <i class="bx bx-user"></i>
               </a>
@@ -74,7 +69,7 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
                 <i class="bx bx-cart"></i>
                 <span class="d-flex">0</span>
               </a>
-            </li>
+            </li> -->
           </ul>
 
           <div class="icons d-flex">
@@ -88,10 +83,12 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
               <i class="bx bx-heart"></i>
               <span class="d-flex">0</span>
             </div>
+            <?php if(isset($_SESSION['admin']) ? !$_SESSION['admin'] : false) {?>
             <a href="cart.php" class="icon">
               <i class="bx bx-cart"></i>
-              <span class="d-flex">0</span>
+              <span class="d-flex"><?php echo $_SESSION['ElemCarrito'];?></span>
             </a>
+            <?php }?>
           </div>
 
           <div class="hamburger">
@@ -168,42 +165,44 @@ session_start(); // Asegúrate de iniciar la sesión al principio del archivo
       </div>
       <div class="product-center">
         <?php
+        include "./php/conexion.php";
+        $database = BD;
         $sentencia = $pdo->prepare("SELECT * FROM {$database}.productos LIMIT 12;");
         $sentencia->execute();
         $listaProductos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <?php foreach ($listaProductos as $producto) { ?>
           <div class="product-item">
-          <div class="overlay">
-            <form action="productDetails.php" method="POST">
+            <div class="overlay">
+              <form action="productDetails.php" method="POST">
+                <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
+                <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
+                <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
+                <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
+                <input type="hidden" name="color" value="<?php echo openssl_encrypt($producto['color'], COD, KEY); ?>">
+                <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
+                <button type='submit' name='MostrarDetalle' value='detalle' class="product-thumb" style="border: none; background: none; padding: 0;">
+                  <img src="<?php echo $producto['imagen']; ?>" alt="" />
+                </button>
+              </form>
+            </div>
+            <div class="product-info">
+              <span><?php echo $producto['nombre_Producto']; ?></span>
+              <a href="productDetails.php"><?php echo $producto['descripcion']; ?></a>
+              <h4><?php echo $producto['precio_Producto'], "$"; ?></h4>
+            </div>
+            <form action="mostrarCarrito.php" method="POST" id='formProducto'>
               <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
               <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
               <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
               <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
-              <input type="hidden" name="color" value="<?php echo openssl_encrypt($producto['color'], COD, KEY); ?>">
+              <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
               <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
-              <button type='submit' name='MostrarDetalle' value='detalle' class="product-thumb" style="border: none; background: none; padding: 0;">
-                <img src="<?php echo $producto['imagen']; ?>" alt="" />
+              <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
+                <i class="bx bx-cart bx-tada"></i>
               </button>
             </form>
           </div>
-          <div class="product-info">
-            <span><?php echo $producto['nombre_Producto']; ?></span>
-            <a href="productDetails.php"><?php echo $producto['descripcion']; ?></a>
-            <h4><?php echo $producto['precio_Producto'], "$"; ?></h4>
-          </div>
-          <form action="mostrarCarrito.php" method="POST" id='formProducto'>
-            <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
-            <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
-            <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
-            <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
-            <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
-            <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
-            <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
-              <i class="bx bx-cart bx-tada"></i>
-            </button>
-          </form>
-        </div>
         <?php } ?>
       </div>
     </section>
