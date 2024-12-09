@@ -1,283 +1,196 @@
+<?php
+session_start(); // Asegúrate de iniciar la sesión al principio del archivo
+include './php/verificar.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Box icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
-    />
-    <!-- Custom StyleSheet -->
-    <link rel="stylesheet" href="./css/styles.css" />
-    <title>Boy’s T-Shirt</title>
-  </head>
 
-  <body>
-    <!-- Navigation -->
-    <div class="top-nav">
-      <div class="container d-flex">
-        <p>Order Online Or Call Us: (001) 2222-55555</p>
-        <ul class="d-flex">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Box icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <!-- Custom StyleSheet -->
+  <link rel="stylesheet" href="./css/styles.css" />
+  <title>Boy’s T-Shirt</title>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <div class="top-nav hei">
+    <div>
     </div>
-    <div class="navigation">
-      <div class="nav-center container d-flex">
-        <a href="index.php" class="logo"><h1>Mr. Store</h1></a>
+  </div>
+  <div class="navigation">
+    <div class="nav-center container d-flex">
+      <a href="index.php" class="logo">
+        <h1>Mr. Store</h1>
+      </a>
 
-        <ul class="nav-list d-flex">
+      <ul class="nav-list d-flex">
+        <li class="nav-item">
+          <a href="index.php" class="nav-link">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a href="product.php" class="nav-link">Tienda</a>
+        </li>
+        <?php
+        if (isset($_SESSION['Cuenta'])) { ?>
           <li class="nav-item">
-            <a href="/" class="nav-link">Home</a>
+            <a href="pedidos.php" class="nav-link">Pedidos</a>
           </li>
+        <?php }
+        if (isset($_SESSION['admin']) ? $_SESSION['admin'] : false) { ?>
           <li class="nav-item">
-            <a href="product.php" class="nav-link">Shop</a>
-          </li>
-          <li class="nav-item">
-            <a href="#terms" class="nav-link">Terms</a>
-          </li>
-          <li class="nav-item">
-            <a href="#about" class="nav-link">About</a>
-          </li>
-          <li class="nav-item">
-            <a href="#contact" class="nav-link">Contact</a>
-          </li>
-          <li class="icons d-flex">
-            <a href="login.php" class="icon">
-              <i class="bx bx-user"></i>
-            </a>
-            <div class="icon">
-              <i class="bx bx-search"></i>
-            </div>
-            <div class="icon">
-              <i class="bx bx-heart"></i>
-              <span class="d-flex">0</span>
-            </div>
-            <a href="cart.php" class="icon">
-              <i class="bx bx-cart"></i>
-              <span class="d-flex">0</span>
-            </a>
-          </li>
-        </ul>
+            <a href="inventario.php" class="nav-link">Inventario</a>
+          </li> <?php } ?>
 
-        <div class="icons d-flex">
-          <a href="login.php" class="icon">
-            <i class="bx bx-user"></i>
-          </a>
-          <div class="icon">
-            <i class="bx bx-search"></i>
-          </div>
-          <div class="icon">
-            <i class="bx bx-heart"></i>
-            <span class="d-flex">0</span>
-          </div>
+      </ul>
+
+      <div class="icons d-flex">
+        <a href="login.php" class="icon">
+          <i class="bx bx-user"></i>
+        </a>
+        <div class="icon">
+          <i class="bx bx-search"></i>
+        </div>
+        <div class="icon">
+          <i class="bx bx-heart"></i>
+          <span class="d-flex"><?php echo isset($_SESSION['Favs']) ? $_SESSION['Favs'] : 0; ?></span>
+        </div>
+        <?php if (isset($_SESSION['admin']) && !$_SESSION['admin']) { ?>
           <a href="cart.php" class="icon">
             <i class="bx bx-cart"></i>
-            <span class="d-flex">0</span>
+            <span class="d-flex"><?php echo isset($_SESSION['ElemCarrito']) ? $_SESSION['ElemCarrito'] : 0; ?></span>
           </a>
-        </div>
+        <?php } ?>
+      </div>
 
-        <div class="hamburger">
-          <i class="bx bx-menu-alt-left"></i>
-        </div>
+      <div class="hamburger">
+        <i class="bx bx-menu-alt-left"></i>
       </div>
     </div>
+  </div>
 
-    <!-- All Products -->
-    <section class="section all-products" id="products">
-      <div class="top container">
-        <h1>All Products</h1>
-        <form>
-          <select>
-            <option value="1">Defualt Sorting</option>
-            <option value="2">Sort By Price</option>
-            <option value="3">Sort By Popularity</option>
-            <option value="4">Sort By Sale</option>
-            <option value="5">Sort By Rating</option>
-          </select>
-          <span><i class="bx bx-chevron-down"></i></span>
-        </form>
+  <!-- All Products -->
+  <section class="section all-products" id="products">
+    <div class="top container">
+      <h1>Todos los productos</h1>
+      <form>
+        <select id="filtro">
+          <option value="1">Por defecto</option>
+          <option value="2">Por precio</option>
+          <option value="4">Por oferta</option>
+        </select>
+        <span><i class="bx bx-chevron-down"></i></span>
+      </form>
+    </div>
+    <div class="product-center container">
+      <?php
+      if (!empty($_REQUEST['page'])) {
+        $_REQUEST['page'] = $_REQUEST['page'];
+      } else {
+        $_REQUEST['page'] = '1';
+      }
+      if ($_REQUEST['page'] == "") {
+        $_REQUEST['page'] = '1';
+      }
+      include "./php/conexion.php";
+      $database = BD;
+      $sentenciaTotal = $pdo->prepare("SELECT * FROM {$database}.productos;");
+      $sentenciaTotal->execute();
+      $totalProductos = $sentenciaTotal->fetchAll(PDO::FETCH_ASSOC);
+
+      $registros = 8;
+      $pagina = $_REQUEST["page"];
+      if (is_numeric($pagina)) {
+        $inicio = ($pagina - 1) * ($registros) + 1;
+      } else {
+        $inicio = 0;
+      }
+      $final = $registros + $inicio - 1;
+      $sentencia = $pdo->prepare("SELECT * FROM {$database}.productos WHERE id_Producto BETWEEN :inicio and :final;");
+      $sentencia->bindParam(":inicio", $inicio, PDO::PARAM_INT);
+      $sentencia->bindParam(":final", $final, PDO::PARAM_INT);
+      $sentencia->execute();
+      $listaProductos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+      $numRegistros = count($totalProductos);
+      ?>
+      <?php foreach ($listaProductos as $producto) { ?>
+        <div class="product-item">
+          <div class="overlay">
+            <form action="productDetails.php" method="POST">
+              <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
+              <input type="hidden" name="nombre" value="<?php echo openssl_encrypt($producto['nombre_Producto'], COD, KEY); ?>">
+              <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['precio_Producto'], COD, KEY); ?>">
+              <input type="hidden" name="descripcion" value="<?php echo openssl_encrypt($producto['descripcion'], COD, KEY); ?>">
+              <input type="hidden" name="color" value="<?php echo openssl_encrypt($producto['color'], COD, KEY); ?>">
+              <input type="hidden" name="tallas" value="<?php echo openssl_encrypt($producto['talla'], COD, KEY); ?>">
+              <input type="hidden" name="imagen" value="<?php echo $producto['imagen']; ?>">
+              <button type='submit' name='MostrarDetalle' value='detalle' class="product-thumb" style="border: none; background: none; padding: 0;">
+                <img src="<?php echo $producto['imagen']; ?>" alt="" />
+              </button>
+            </form>
+          </div>
+          <div class="product-info">
+            <span><?php echo $producto['nombre_Producto']; ?></span>
+            <a href="productDetails.php"><?php echo $producto['descripcion']; ?></a>
+            <h4><?php echo $producto['precio_Producto'], "$"; ?></h4>
+          </div>
+          <form action="mostrarCarrito.php" method="POST" id='formProducto'>
+            <input type="hidden" name="id" value="<?php echo openssl_encrypt($producto['id_Producto'], COD, KEY); ?>">
+            <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1, COD, KEY); ?>">
+            <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
+              <i class="bx bx-cart bx-tada"></i>
+            </button>
+          </form>
+        </div>
+      <?php } ?>
+    </div>
+  </section>
+  <section class="pagination">
+    <div class="container">
+      <?php
+      $paginas = ceil($numRegistros / $registros);
+      for ($i = 1; $i <= $paginas; $i++) {
+        echo "<a href='product.php?page=$i' class='pagina'>$i</a>";
+      }
+      echo "<a href='product.php?page=$paginas' class='pagina'><i class='bx bx-right-arrow-alt'></i></a>";
+      ?>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="row">
+      <div class="col d-flex">
+        <h4>INFORMATION</h4>
+        <a href="">Acerca de nosotros</a>
+        <a href="">Contactanos</a>
+        <a href="">Terminos y condiciones</a>
+        <a href="">Guia de envio</a>
       </div>
-      <div class="product-center container">
-        <div class="product-item">
-          <div class="overlay">
-            <a href="productDetails.php" class="product-thumb">
-              <img src="./images/product-7.jpg" alt="" />
-            </a>
-            <span class="discount">40%</span>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="productDetails.php">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-2.jpg" alt="" />
-            </a>
-            <span class="discount">40%</span>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-3.jpg" alt="" />
-            </a>
-            <span class="discount">40%</span>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-4.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-5.jpg" alt="" />
-            </a>
-            <span class="discount">40%</span>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-6.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-7.jpg" alt="" />
-            </a>
-            <span class="discount">40%</span>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
-        <div class="product-item">
-          <div class="overlay">
-            <a href="" class="product-thumb">
-              <img src="./images/product-4.jpg" alt="" />
-            </a>
-          </div>
-          <div class="product-info">
-            <span>MEN'S CLOTHES</span>
-            <a href="">Concepts Solid Pink Men’s Polo</a>
-            <h4>$150</h4>
-          </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
-        </div>
+      <div class="col d-flex">
+        <h4>Links</h4>
+        <!-- <a href="">Online Store</a> -->
+        <!-- <a href="">Customer Services</a> -->
+        <!-- <a href="">Promotion</a> -->
+        <!-- <a href="">Top Brands</a> -->
       </div>
-    </section>
-    <section class="pagination">
-      <div class="container">
-        <span>1</span> <span>2</span> <span>3</span> <span>4</span>
-        <span><i class="bx bx-right-arrow-alt"></i></span>
+      <div class="col d-flex">
+        <span><i class="bx bxl-facebook-square"></i></span>
+        <span><i class="bx bxl-instagram-alt"></i></span>
+        <!-- <span><i class="bx bxl-github"></i></span> -->
+        <!-- <span><i class="bx bxl-twitter"></i></span> -->
+        <!-- <span><i class="bx bxl-pinterest"></i></span> -->
       </div>
-    </section>
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="row">
-        <div class="col d-flex">
-          <h4>INFORMATION</h4>
-          <a href="">About us</a>
-          <a href="">Contact Us</a>
-          <a href="">Term & Conditions</a>
-          <a href="">Shipping Guide</a>
-        </div>
-        <div class="col d-flex">
-          <h4>USEFUL LINK</h4>
-          <a href="">Online Store</a>
-          <a href="">Customer Services</a>
-          <a href="">Promotion</a>
-          <a href="">Top Brands</a>
-        </div>
-        <div class="col d-flex">
-          <span><i class="bx bxl-facebook-square"></i></span>
-          <span><i class="bx bxl-instagram-alt"></i></span>
-          <span><i class="bx bxl-github"></i></span>
-          <span><i class="bx bxl-twitter"></i></span>
-          <span><i class="bx bxl-pinterest"></i></span>
-        </div>
-      </div>
-    </footer>
-    <!-- Custom Script -->
-    <script src="./js/index.js"></script>
-  </body>
+    </div>
+  </footer>
+  <!-- Custom Script -->
+  <script src="./js/index.js"></script>
+</body>
+
 </html>

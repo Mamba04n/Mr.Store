@@ -9,6 +9,7 @@
   --green: #6cbe02;
   --grey1: #f0f0f0;
   --grey2: #e9d7d3;
+  --red: #E16554;
 }
 
 /* Basic Reset */
@@ -70,6 +71,10 @@ Header
   background-color: #c496f9;
   font-size: 1.3rem;
   color: var(--white);
+}
+
+.hei{
+  height: 15px;
 }
 
 .top-nav div {
@@ -608,25 +613,6 @@ Hero Media Query
     padding: 0.5rem 1rem;
     font-size: 1.8rem;
   }
-}
-.cart-button {
-  background-color: transparent; /* Fondo transparente */
-  border: none; /* Sin borde */
-  cursor: pointer; /* Cursor de puntero */
-  padding: 0; /* Sin padding */
-  margin: 0; /* Sin margen */
-  display: flex; /* Flexbox para centrar el contenido */
-  align-items: center; /* Centrar verticalmente */
-  justify-content: center; /* Centrar horizontalmente */
-}
-
-.cart-button i {
-  font-size: 24px; /* Tamaño del ícono */
-  color: #000; /* Color del ícono */
-}
-
-.cart-button:hover i {
-  color: #007bff; /* Color del ícono al pasar el ratón */
 }
 
 /* Banner */
@@ -1200,8 +1186,8 @@ td a {
 }
 
 td img {
-  width: 8rem;
-  height: 8rem;
+  width: 10%;
+  height: auto;
   margin-right: 1rem;
 }
 
@@ -1260,9 +1246,10 @@ th:last-child {
 }
 
 .product-detail .left .main img {
-  object-fit: cover;
-  height: 100%;
+  /* object-fit: cover; */
+  height: auto;
   width: 100%;
+  object-fit: contain;
 }
 
 .product-detail .right span {
@@ -1287,7 +1274,7 @@ th:last-child {
 .product-detail .right div {
   display: inline-block;
   position: relative;
-  z-index: -1;
+  z-index: 0;
 }
 
 .product-detail .right select {
@@ -1354,6 +1341,7 @@ th:last-child {
 
   .product-detail .right {
     margin-top: 1rem;
+    /* z-index: 30; */
   }
 
   .product-detail .left {
@@ -1421,4 +1409,124 @@ th:last-child {
 
 .login-form form p a {
   color: dodgerblue;
+}
+
+.brd{
+  border: var(--black);
+  border-bottom: var(--black) 1px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-style: solid;
+}
+.container2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.div1{
+  width: 45%;
+  height: 100%;
+  padding-left: 30px;
+}
+.div2{
+  width: 45%;
+  height: 100%;
+}
+
+.format{
+  height: 3rem;
+  color: rgb(150, 149, 150);
+}
+
+.div1 h3{
+  color: var(--black);
+  height: 4rem;
+}
+.selector{
+  width: 100%;
+  cursor: text;
+}
+.text{
+  padding: 8px;
+}
+#dpto{
+  padding: 10px;
+  border: 2px solid black;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  font-weight: bold;
+  font-size: medium;
+  margin-top:15px ;
+  cursor: pointer !important;
+}
+#dpto:hover{
+  box-shadow: 2px 2px 5px black;
+}
+
+.pagina{
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--purple);
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  background: var(--white);
+}
+
+.pagina:hover{
+  border: 1px solid var(--purple);
+  background-color: var(--purple);
+  color: #fff;
+}
+
+.btn-primary{
+  border: 1px solid var(--purple);
+  background-color: var(--white);
+  transition: all 300ms ease-in-out;
+}
+
+.btn-primary:hover{
+  border: 1px solid var(--purple);
+  background-color: var(--purple);
+  color: #fff;
+}
+
+.bx-tada{
+  padding: 7px;
+}
+
+.texto{
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+form .btn-danger{
+  background: var(--red);
+  padding: 4px;
+  border: 1px solid var(--purple);
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.bg-purple{
+  background: var(--purple);
+}
+
+.container .rightT{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btrPadding{
+  padding: 8px;
 }

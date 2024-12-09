@@ -1,157 +1,151 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Box icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
-    />
-    <!-- Custom StyleSheet -->
-    <link rel="stylesheet" href="./css/styles.css" />
-    <title>Sign Up</title>
-  </head>
-  <body>
-    <!-- Navigation -->
-    <div class="top-nav">
-      <div class="container d-flex">
-        <p>Order Online Or Call Us: (001) 2222-55555</p>
-        <ul class="d-flex">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
+
+<head>
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Box icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <!-- Custom StyleSheet -->
+  <link rel="stylesheet" href="./css/styles.css" />
+  <title>Sign Up</title>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <div class="top-nav hei">
+    <div>
     </div>
-    <div class="navigation">
-      <div class="nav-center container d-flex">
-        <a href="index.php" class="logo"><h1>Mr. Store</h1></a>
+  </div>
+  <div class="navigation">
+    <div class="nav-center container d-flex">
+      <a href="index.php" class="logo">
+        <h1>Mr. Store</h1>
+      </a>
 
-        <ul class="nav-list d-flex">
+      <ul class="nav-list d-flex">
+        <li class="nav-item">
+          <a href="index.php" class="nav-link">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a href="product.php" class="nav-link">Tienda</a>
+        </li>
+        <?php
+        if (isset($_SESSION['Cuenta'])) { ?>
           <li class="nav-item">
-            <a href="/" class="nav-link">Home</a>
+            <a href="pedidos.php" class="nav-link">Pedidos</a>
           </li>
+        <?php }
+        include "./php/conexion.php";
+        $database = BD;
+        $query = $pdo->prepare("SELECT * FROM {$database}.administradores where id_Usuario = :cuenta");
+        $query->bindParam(":cuenta", $_SESSION['Cuenta'], PDO::PARAM_INT);
+        $query->execute();
+        $resultado = $query->fetch(PDO::FETCH_ASSOC);
+        if ($resultado) { ?>
           <li class="nav-item">
-            <a href="product.php" class="nav-link">Shop</a>
-          </li>
-          <li class="nav-item">
-            <a href="#terms" class="nav-link">Terms</a>
-          </li>
-          <li class="nav-item">
-            <a href="#about" class="nav-link">About</a>
-          </li>
-          <li class="nav-item">
-            <a href="#contact" class="nav-link">Contact</a>
-          </li>
-          <li class="icons d-flex">
-            <a href="login.php" class="icon">
-              <i class="bx bx-user"></i>
-            </a>
-            <div class="icon">
-              <i class="bx bx-search"></i>
-            </div>
-            <div class="icon">
-              <i class="bx bx-heart"></i>
-              <span class="d-flex">0</span>
-            </div>
-            <a href="cart.php" class="icon">
-              <i class="bx bx-cart"></i>
-              <span class="d-flex">0</span>
-            </a>
-          </li>
-        </ul>
+            <a href="inventario.php" class="nav-link">Inventario</a>
+          </li> <?php } ?>
+      </ul>
 
-        <div class="icons d-flex">
-          <a href="login.php" class="icon">
-            <i class="bx bx-user"></i>
-          </a>
-          <div class="icon">
-            <i class="bx bx-search"></i>
-          </div>
-          <div class="icon">
-            <i class="bx bx-heart"></i>
-            <span class="d-flex">0</span>
-          </div>
+      <div class="icons d-flex">
+        <a href="login.php" class="icon">
+          <i class="bx bx-user"></i>
+        </a>
+        <div class="icon">
+          <i class="bx bx-search"></i>
+        </div>
+        <div class="icon">
+          <i class="bx bx-heart"></i>
+          <span class="d-flex"><?php echo isset($_SESSION['Favs']) ? $_SESSION['Favs'] : 0; ?></span>
+        </div>
+
+        <?php if (isset($_SESSION['admin']) && !$_SESSION['admin']) { ?>
           <a href="cart.php" class="icon">
             <i class="bx bx-cart"></i>
-            <span class="d-flex">0</span>
+            <span class="d-flex"><?php echo isset($_SESSION['ElemCarrito']) ? $_SESSION['ElemCarrito'] : 0; ?></span>
           </a>
-        </div>
+        <?php } ?>
+      </div>
 
-        <div class="hamburger">
-          <i class="bx bx-menu-alt-left"></i>
-        </div>
+      <div class="hamburger">
+        <i class="bx bx-menu-alt-left"></i>
       </div>
     </div>
-    <!-- Login -->
-    <div class="container">
-          <div class="login-form">
-              <form action="./php/registro.php" method="POST">
-                  <h1>Registrate</h1>
-                  <p>
-                      Por favor llena este formulario para crear una cuenta o
-                      <a href="login.php">Iniciar Sesion</a>
-                  </p>
-                  <label for="email">Nombre Completo</label>
-                  <input type="text" placeholder="Ingrese Su Nombre" name="nombre" required />
+  </div>
 
-                  <label for="email">Email</label>
-                  <input type="text" placeholder="Ingrese el Email" name="correo" required />
+  <!-- Login -->
+  <div class="container">
+    <div class="login-form">
+      <form action="./php/registro.php" method="POST">
+        <h1>Registrate</h1>
+        <p>
+          Por favor llena este formulario para crear una cuenta o
+          <a href="login.php">Iniciar Sesion</a>
+        </p>
+        <label for="nombre">Nombre Completo</label>
+        <input type="text" placeholder="Ingrese su Nombre" name="nombre" required />
 
-                  <label for="email">Usuario</label>
-                  <input type="text" placeholder="Ingrese Su Usuario" name="usuario" required />
+        <label for="cedula">Cedula de identidad (con guiones)</label>
+        <input type="text" placeholder="Ingrese su cedula" name="cedula" id="cedula" required />
 
-                  <label for="psw">Contraseña</label>
-                  <input type="password" placeholder="Enter Password" name="psw" required />
+        <label for="email">Email</label>
+        <input type="text" placeholder="Ingrese el Email" name="correo" required />
 
-                  <label>
-                      <input type="checkbox" checked="checked" name="remember" style="margin-bottom: 15px" />
-                      Remember me
-                  </label>
+        <label for="usuario">Usuario</label>
+        <input type="text" placeholder="Ingrese su Usuario" name="usuario" required />
 
-                  <p>
-                      By creating an account you agree to our
-                      <a href="#">Terms & Privacy</a>.
-                  </p>
+        <label for="psw">Contraseña</label>
+        <input type="password" placeholder="Ingrese la contraseña" name="psw" required />
 
-                  <div class="buttons">
-                      <button type="button" class="cancelbtn">Cancel</button>
-                      <button type="submit" class="signupbtn">Sign Up</button>
-                  </div>
-              </form>
-          </div>
+        <label for="direccion">Direccion</label>
+        <input type="text" placeholder="Ingrese su direccion" name="direccion" required />
+
+        <label>
+          <input type="checkbox" checked="checked" name="remember" style="margin-bottom: 15px" />
+          Remember me
+        </label>
+
+        <p>
+          Al crear una cuenta usted acepta nuestros
+          <a href="#">Terminos & Condiciones</a>.
+        </p>
+
+        <div class="buttons">
+          <button type="button" class="cancelbtn">Cancel</button>
+          <button type="submit" class="signupbtn">Resgistrarse</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="row">
+      <div class="col d-flex">
+        <h4>INFORMACION</h4>
+        <a href="">Acerca de nosotros</a>
+        <a href="">Contactanos</a>
+        <a href="">Terminos</a>
       </div>
-
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="row">
-        <div class="col d-flex">
-          <h4>INFORMATION</h4>
-          <a href="">About us</a>
-          <a href="">Contact Us</a>
-          <a href="">Term & Conditions</a>
-          <a href="">Shipping Guide</a>
-        </div>
-        <div class="col d-flex">
-          <h4>USEFUL LINK</h4>
-          <a href="">Online Store</a>
-          <a href="">Customer Services</a>
-          <a href="">Promotion</a>
-          <a href="">Top Brands</a>
-        </div>
-        <div class="col d-flex">
-          <span><i class="bx bxl-facebook-square"></i></span>
-          <span><i class="bx bxl-instagram-alt"></i></span>
-          <span><i class="bx bxl-github"></i></span>
-          <span><i class="bx bxl-twitter"></i></span>
-          <span><i class="bx bxl-pinterest"></i></span>
-        </div>
+      <div class="col d-flex">
+        <span><i class='bx bxl-facebook-square'></i></span>
+        <span><i class='bx bxl-instagram-alt'></i></span>
+        <span><i class='bx bxl-github'></i></span>
+        <span><i class='bx bxl-twitter'></i></span>
+        <span><i class='bx bxl-pinterest'></i></span>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <!-- Custom Script -->
-    <script src="./js/index.js"></script>
-  </body>
+
+  <!-- Custom Script -->
+  <script src="./js/index.js"></script>
+</body>
+
 </html>

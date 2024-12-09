@@ -7,7 +7,7 @@
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
-    />
+    />  
     <!-- Custom StyleSheet -->
     <link rel="stylesheet" href="./css/styles.css" />
     <title>Login</title>

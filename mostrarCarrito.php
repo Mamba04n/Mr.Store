@@ -2,21 +2,15 @@
 session_start();
 include './php/config.php';
 
-if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['btnAccion']) && $_POST['btnAccion'] == 'Agregar') {
         $id = openssl_decrypt($_POST['id'], COD, KEY);
-        $nombre = openssl_decrypt($_POST['nombre'], COD, KEY);
-        $precio = openssl_decrypt($_POST['precio'], COD, KEY);
         $cantidad = openssl_decrypt($_POST['cantidad'], COD, KEY);
-        $imagen = $_POST['imagen']; // Asegúrate de que el campo 'imagen' esté presente en el formulario
 
-        if (is_numeric($id) && is_string($nombre) && is_numeric($precio) && is_numeric($cantidad) && is_string($imagen)) {
+        if (is_numeric($id) && is_numeric($cantidad)) {
             $producto = array(
                 'id' => $id,
-                'nombre' => $nombre,
-                'precio' => $precio,
-                'cantidad' => $cantidad,
-                'imagen' => $imagen
+                'cantidad' => $cantidad
             );
 
             if (!isset($_SESSION['CARRITO'])) {
@@ -27,8 +21,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Redirigir de vuelta a la página de productos con un mensaje de éxito
-    header('Location: index.php?status=success');
+    // Redirigir a cart.php después de agregar el producto
+    header('Location: cart.php');
     exit();
 } else {
     echo "No se recibió una solicitud POST.";
